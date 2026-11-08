@@ -1,13 +1,12 @@
-# Install PyTorch CPU build first on machines without an NVIDIA GPU (smaller download):
-#   pip install torch --index-url https://download.pytorch.org/whl/cpu
 Django>=5.2,<6.0
 djangorestframework>=3.16
 drf-spectacular>=0.28
 django-cors-headers>=4.6
 psycopg[binary,pool]>=3.2
 python-dotenv>=1.0
-sentence-transformers>=3.0
-torch>=2.3
-scikit-learn>=1.5
 numpy>=1.26
-pandas>=2.2
+# Runs sentence-transformers/all-MiniLM-L6-v2 (official ONNX export) locally on the CPU.
+onnxruntime>=1.18
+tokenizers>=0.19
+huggingface_hub>=0.23
+# Optional PyTorch backend (NLP_BACKEND=torch) and its equivalence test: see requirements-torch.txt

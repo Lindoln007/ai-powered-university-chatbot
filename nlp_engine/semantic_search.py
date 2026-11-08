@@ -13,7 +13,8 @@ vector database is required.
 from dataclasses import dataclass
 
 import numpy as np
-from sklearn.metrics.pairwise import cosine_similarity
+
+from .similarity import cosine_similarity
 
 
 @dataclass(frozen=True)

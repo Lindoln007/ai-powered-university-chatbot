@@ -1,0 +1,7 @@
+# Optional: run the model with the sentence-transformers library on PyTorch (NLP_BACKEND=torch),
+# and enable the test that proves the ONNX and PyTorch backends give identical embeddings.
+# Install the CPU build of PyTorch first (much smaller; no NVIDIA GPU needed):
+#   pip install torch --index-url https://download.pytorch.org/whl/cpu
+-r requirements.txt
+sentence-transformers>=3.0
+torch>=2.3

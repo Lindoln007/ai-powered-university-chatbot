@@ -17,9 +17,9 @@ from pathlib import Path
 
 import numpy as np
 from django.conf import settings
-from sklearn.metrics.pairwise import cosine_similarity
 
 from . import embeddings
+from .similarity import cosine_similarity
 
 
 class Intent:

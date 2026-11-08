@@ -121,9 +121,9 @@ responses, and logic is not duplicated between apps.
 | Web framework | Django 5.2 |
 | REST API | Django REST Framework 3.16+ |
 | Database | PostgreSQL (tested with PostgreSQL 18), psycopg 3 with connection pooling |
-| ML model | `sentence-transformers/all-MiniLM-L6-v2` via `sentence-transformers` (PyTorch, CPU build) |
-| Similarity | scikit-learn `cosine_similarity`, NumPy |
-| Data processing | NumPy (pandas is listed for dataset analysis but not required at runtime) |
+| ML model | `sentence-transformers/all-MiniLM-L6-v2`, run locally on the CPU with ONNX Runtime + Hugging Face `tokenizers` (default), or with the `sentence-transformers` library on PyTorch (optional) |
+| Similarity | NumPy cosine similarity (equivalent to scikit-learn's `cosine_similarity`, checked in the tests) |
+| Data processing | NumPy |
 | Configuration | python-dotenv (`.env`) |
 | API documentation | drf-spectacular (OpenAPI 3, Swagger UI, ReDoc) |
 | Authentication | Django auth with DRF token authentication (plus session authentication for the browsable API) |
@@ -169,8 +169,23 @@ without retraining anything.
   Face Hub is never contacted.
 * If the model files are missing, the API returns **HTTP 503** with installation
   instructions. It never silently falls back to an external service.
-* Inference runs on the CPU with a small number of PyTorch threads (automatically
-  `min(4, cores/2)`, configurable with `NLP_TORCH_THREADS`).
+* Inference runs on the CPU with a small number of threads (automatically `min(4, cores/2)`,
+  configurable with `NLP_THREADS`).
+
+**Two runtimes for the same model (`NLP_BACKEND`).** The model's official Hugging Face
+repository publishes an ONNX export (`onnx/model.onnx`) of the same weights.
+
+* `onnx` (default): `nlp_engine/onnx_encoder.py` runs that export with ONNX Runtime and
+  reproduces the Sentence Transformer pipeline for this model: tokenise (up to 256 tokens),
+  Transformer, mean pooling over real tokens, L2 normalisation. Its embeddings are
+  **numerically identical** to the PyTorch version: cosine similarity 1.000000 on all 258 stored
+  knowledge base texts, maximum difference 2×10⁻⁷. An automated test checks this.
+* `torch`: the `sentence-transformers` library on PyTorch (install `requirements-torch.txt`).
+
+ONNX is the default because it makes the server about 9× faster to start, and far faster after
+a reboot. Importing PyTorch and Transformers means loading over 4,000 Python files, which on
+Windows (with antivirus scanning) took up to 2.5 minutes on a cold start. The ONNX runtime loads
+about 790 files and is ready in about 1 second. See section 14.
 
 ### 6.3 Cosine similarity
 
@@ -181,8 +196,10 @@ cos(q, s) = (q · s) / (‖q‖ · ‖s‖)
 ```
 
 It ranges from −1 to 1 and measures the angle between the vectors, not their length. Values
-near 1 mean very similar meaning. Values near 0 mean unrelated. The project uses
-`sklearn.metrics.pairwise.cosine_similarity`. The vectors are also L2-normalised when stored.
+near 1 mean very similar meaning. Values near 0 mean unrelated. The project computes it with
+NumPy (`nlp_engine/similarity.py`), which gives the same result as scikit-learn's
+`cosine_similarity` without loading scikit-learn and SciPy at start-up. The vectors are also
+L2-normalised when stored.
 
 Cosine scores are **not probabilities**. A score of 0.6 does not mean "60% sure". That is why
 the answer threshold was chosen by measurement (see 7.4) and not assumed.
@@ -388,13 +405,18 @@ cd "D:\Projects\AI Powered University Chatbot"
 py -3.12 -m venv .venv
 .venv\Scripts\activate
 python -m pip install --upgrade pip
-# CPU-only PyTorch (much smaller download; no NVIDIA GPU needed)
-pip install torch --index-url https://download.pytorch.org/whl/cpu
 pip install -r requirements.txt
 ```
 
-> Python 3.12 is recommended. PyTorch wheels for the newest Python releases sometimes appear
-> later.
+This installs the default ONNX runtime, with no PyTorch needed. To also use the optional PyTorch
+backend (and run the test proving both backends give identical embeddings):
+
+```powershell
+pip install torch --index-url https://download.pytorch.org/whl/cpu
+pip install -r requirements-torch.txt
+```
+
+> Python 3.12 is recommended.
 
 ### 10.2 PostgreSQL
 
@@ -438,7 +460,8 @@ settings are documented in `.env.example`. The most important ones:
 | `CHATBOT_DEMO_MODE` | `true` | Allow clearly labelled demonstration information |
 | `CHATBOT_SIMILARITY_THRESHOLD` | `0.50` | Minimum cosine similarity for an answer |
 | `NLP_OFFLINE` | `false` in example | Set to `true` after the model is downloaded |
-| `NLP_TORCH_THREADS` | `0` (auto) | CPU threads used by PyTorch |
+| `NLP_BACKEND` | `onnx` | `onnx` (fast start-up) or `torch` (sentence-transformers on PyTorch) |
+| `NLP_THREADS` | `0` (auto) | CPU threads used for inference |
 | `DB_POOL` | `true` | PostgreSQL connection pool |
 | `CORS_ALLOWED_ORIGINS` | localhost:3000, 5173 | Origins of the future frontend |
 
@@ -692,7 +715,9 @@ python manage.py test
 
 The suite (106 tests) runs against a temporary PostgreSQL test database and uses the **real
 local model**, not mocks, for all semantic tests. The database user needs the `CREATEDB`
-permission. On the development laptop it takes about one minute, after the first cold start.
+permission. On the development laptop it takes one to three minutes. The test that compares
+the ONNX and PyTorch backends deliberately loads PyTorch, and it is skipped if PyTorch is not
+installed.
 
 Coverage by area:
 
@@ -712,24 +737,52 @@ Coverage by area:
 ## 14. Performance on the development laptop
 
 Measured on the target machine (Intel Core i5 11th Gen, 12 GB RAM, Intel Iris Xe, SSD,
-Windows 11), CPU only:
+Windows 11), CPU only.
 
-| Measurement | Result |
-|---|---|
-| Server ready to answer (library import + model load, in the background at start-up) | ~15 s typically; up to ~80 s on the first start after a reboot (see note below) |
-| Model weights load from local cache | 0.2–7 s (once per server process) |
-| Chatbot pipeline per new question (embed, intent, search, response) | **~16 ms median** |
-| Full HTTP round trip per new question (including database writes) | **~57 ms median** |
-| Repeated question (embedding cache hit) | ~11 ms round trip |
-| Health endpoint round trip | ~3 ms |
-| Server memory (model + PyTorch + Django) | ~600 MB |
-| Embedding the full dataset (261 texts) | a few seconds, done once at import |
+### 14.1 Why the first version felt slow
 
-Optimisations applied for this hardware:
+Answering a question has always been fast (the embedding, search and response take
+milliseconds). The delay users saw was **start-up**: before the first answer, Python had to load
+PyTorch, Hugging Face Transformers, sentence-transformers and scikit-learn. On a cold Windows
+file cache (after a reboot or a long idle period), each of those files is read from disk and
+scanned by antivirus. Measured stage by stage:
 
-* CPU-only PyTorch build (no CUDA download). Thread count capped at the physical core count.
-* Model loaded once per process and preloaded in a background thread. Offline mode means no
-  network checks at start-up.
+| Start-up stage | Cold cache | Warm cache |
+|---|---|---|
+| Django and project imports (incl. scikit-learn, SciPy, pandas) | 44.9 s | 2.5 s |
+| `import torch` | 29.7 s | 2.2 s |
+| `import transformers` | 41.6 s | 2.2 s |
+| `import sentence_transformers` | 25.3 s | 2.9 s |
+| Load model weights | 5.0 s | 0.3 s |
+| Answer a question | 0.01 s | 0.01 s |
+| **Total before the first answer** | **≈ 152 s** | **≈ 10.4 s** |
+
+### 14.2 What was changed
+
+* **ONNX Runtime instead of PyTorch** for the same model, with identical embeddings (section 6.2).
+* **NumPy cosine similarity instead of scikit-learn**, which also removes SciPy and pandas.
+* **Search index built during start-up warm-up**, so the first question does not pay for it.
+
+Python now loads **791 files (86 MB) instead of 4,249 files (184 MB)** to start the server.
+
+### 14.3 Results
+
+| Measurement | Before | After |
+|---|---|---|
+| Start-up to "ready", warm cache (stage timing) | 10.4 s | **1.2 s** |
+| Server process start to model ready (HTTP health check) | ~15 s | **2.7 s** |
+| Start-up after a reboot (cold cache) | up to ~2.5 min | expected to fall roughly in line with the 81% fewer files; not measurable on demand |
+| First question right after start-up | waited for warm-up (up to minutes) | **78 ms** |
+| Typical question, full HTTP round trip (median / p95) | 57 ms / – | **15 ms / 35 ms** |
+| Chatbot pipeline per question (median) | 16 ms | **8 ms** |
+| Server memory | ~600 MB | **225 MB** |
+| Retrieval accuracy (held-out set, section 7.4) | 92.7% top-1 | **92.7% top-1, identical results** |
+
+### 14.4 Other optimisations
+
+* Model loaded once per process and preloaded in a background thread, together with the intent
+  examples and the search index. Offline mode means no network checks at start-up.
+* Inference threads capped at the physical core count.
 * Embeddings persisted in PostgreSQL and only recomputed when text changes. In-memory search
   matrix. Query embedding cache.
 * **PostgreSQL connection pooling**. On this machine each new connection cost about 50 ms, and
@@ -740,16 +793,8 @@ Optimisations applied for this hardware:
 * Database indexes on status fields, timestamps and conversation history. Pagination on every
   list.
 
-> **Cold starts on Windows.** Importing `sentence-transformers` reads files from the more than
-> 500 model packages bundled with the `transformers` library. When those files are not in the
-> Windows file cache (for example after a reboot) and real-time antivirus scanning inspects each
-> one, the import was measured at **80 s**. Immediately afterwards it took **7.5 s**. The very
-> first command after installing packages can take a few minutes for the same reason. The server
-> stays responsive during warm-up. `GET /api/health/` reports `nlp_model.status` as `loading`,
-> then `ready`, and a chat question sent during warm-up simply waits until the model is ready. If
-> cold starts bother you, you can add the project's `.venv` folder to the Windows Security
-> exclusions yourself (Settings → Privacy & security → Windows Security → Virus & threat
-> protection → Exclusions). This is optional, and it is a security decision for you to make.
+While the model loads, `GET /api/health/` reports `nlp_model.status` as `loading`, then
+`ready`, and the web interface tells users their first answer may take a moment.
 
 ## 15. Known limitations
 
@@ -845,8 +890,8 @@ else to `index.html`). If the interface is hosted on a different origin, add tha
 
 ### 17.4 Notes
 
-* After a server restart, the first answer can take a minute while the language model loads
-  (see section 14). The interface says so in the message box instead of leaving users guessing.
+* Right after a server restart the language model needs a few seconds to load (see section 14).
+  The interface says so in the message box instead of leaving users guessing.
 * Feedback can be given once per answer. After a page reload the buttons reappear, but a second
   rating is politely ignored.
 

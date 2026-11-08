@@ -1,6 +1,14 @@
+import importlib.util
+import os
+import subprocess
+import sys
+import tempfile
+import unittest
+from pathlib import Path
 from unittest import mock
 
 import numpy as np
+from django.conf import settings
 from django.test import SimpleTestCase, override_settings
 
 from . import embeddings, model_loader
@@ -8,6 +16,7 @@ from .intent_classifier import Intent, get_intent_classifier
 from .preprocessing import PreprocessingError, detect_small_talk, looks_like_follow_up, preprocess
 from .response_generator import FALLBACK_MESSAGE, ResponseGenerator, RetrievedKnowledge
 from .semantic_search import IndexEntry, SearchHit, SemanticIndex, decide
+from .similarity import cosine_similarity
 
 
 class PreprocessingTests(SimpleTestCase):
@@ -110,8 +119,9 @@ class ModelLoaderTests(SimpleTestCase):
         self.assertTrue(model_loader.model_status()["loaded"])
 
     def test_missing_model_raises_clear_error(self):
-        with mock.patch.object(model_loader, "_model", None), \
-                mock.patch("sentence_transformers.SentenceTransformer", side_effect=OSError("not found")):
+        with tempfile.TemporaryDirectory() as empty_cache, \
+                override_settings(NLP_MODEL_CACHE_DIR=Path(empty_cache), NLP_OFFLINE=True), \
+                mock.patch.object(model_loader, "_model", None):
             with self.assertRaises(model_loader.ModelUnavailableError) as ctx:
                 model_loader.get_model()
         self.assertIn("download_model", str(ctx.exception))
@@ -123,6 +133,44 @@ class ModelLoaderTests(SimpleTestCase):
             model = model_loader.get_model()
             vector = model.encode(["offline check"], normalize_embeddings=True)
         self.assertEqual(vector.shape, (1, 384))
+
+    def test_default_backend_is_onnx(self):
+        self.assertEqual(model_loader.model_status()["backend"], "onnx")
+
+    def test_server_start_does_not_import_heavy_libraries(self):
+        """Regression test for slow start-up: PyTorch, Transformers and scikit-learn must not be loaded."""
+        script = (
+            "import os, sys, django; os.environ['DJANGO_SETTINGS_MODULE'] = 'config.settings'; django.setup();"
+            "from nlp_engine.model_loader import get_model; from nlp_engine import embeddings;"
+            "get_model(); embeddings.encode_one('start-up check');"
+            "print(','.join(m for m in ('torch', 'transformers', 'sentence_transformers', 'sklearn', 'scipy', 'pandas')"
+            " if m in sys.modules))"
+        )
+        result = subprocess.run([sys.executable, "-c", script], cwd=settings.BASE_DIR, capture_output=True,
+                                text=True, timeout=300, env={**os.environ, "NLP_BACKEND": "onnx"})
+        self.assertEqual(result.returncode, 0, result.stderr[-2000:])
+        self.assertEqual(result.stdout.strip().splitlines()[-1] if result.stdout.strip() else "", "")
+
+    @unittest.skipUnless(importlib.util.find_spec("sentence_transformers"), "sentence-transformers not installed")
+    def test_onnx_and_pytorch_backends_produce_identical_embeddings(self):
+        texts = ["What programmes does the university offer?", "Where is the library?",
+                 "How much are tuition fees for the bachelor's degree in education?"]
+        onnx_vectors = model_loader.get_model().encode(texts, normalize_embeddings=True)
+        with override_settings(NLP_BACKEND="torch", NLP_OFFLINE=True), mock.patch.object(model_loader, "_model", None):
+            torch_vectors = model_loader.get_model().encode(texts, normalize_embeddings=True, convert_to_numpy=True)
+        np.testing.assert_allclose(onnx_vectors, torch_vectors, atol=1e-5)
+
+
+class SimilarityTests(SimpleTestCase):
+    def test_matches_definition_of_cosine_similarity(self):
+        rng = np.random.default_rng(7)
+        a, b = rng.normal(size=(3, 8)), rng.normal(size=(5, 8))
+        expected = np.array([[x @ y / (np.linalg.norm(x) * np.linalg.norm(y)) for y in b] for x in a])
+        np.testing.assert_allclose(cosine_similarity(a, b), expected, rtol=1e-5)
+
+    def test_zero_vector_does_not_divide_by_zero(self):
+        result = cosine_similarity(np.zeros((1, 4)), np.ones((1, 4)))
+        self.assertTrue(np.isfinite(result).all())
 
 
 class IntentClassifierTests(SimpleTestCase):

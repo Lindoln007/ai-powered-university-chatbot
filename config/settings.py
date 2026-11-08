@@ -228,9 +228,12 @@ NLP_MODEL_CACHE_DIR = Path(os.getenv("NLP_MODEL_CACHE_DIR", str(BASE_DIR / "ml_m
 # When true the model is loaded strictly from the local cache (no network access).
 NLP_OFFLINE = env_bool("NLP_OFFLINE", False)
 NLP_DEVICE = os.getenv("NLP_DEVICE", "cpu")
+# "onnx" (default): the model's official ONNX export on ONNX Runtime; identical embeddings, fast start-up.
+# "torch": the sentence-transformers library on PyTorch.
+NLP_BACKEND = os.getenv("NLP_BACKEND", "onnx").strip().lower()
 NLP_BATCH_SIZE = env_int("NLP_BATCH_SIZE", 32)
-# Number of CPU threads used by PyTorch (0 = automatic: physical cores, max 4).
-NLP_TORCH_THREADS = env_int("NLP_TORCH_THREADS", 0)
+# CPU threads used for inference (0 = automatic: physical cores, max 4).
+NLP_THREADS = env_int("NLP_THREADS", env_int("NLP_TORCH_THREADS", 0))
 # Load the model when the development server starts, so the first question is fast.
 NLP_PRELOAD_MODEL = env_bool("NLP_PRELOAD_MODEL", True)
 NLP_INTENTS_FILE = Path(os.getenv("NLP_INTENTS_FILE", str(BASE_DIR / "data" / "intents.json")))

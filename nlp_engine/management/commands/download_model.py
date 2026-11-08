@@ -11,6 +11,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         self.stdout.write(f"Model: {settings.NLP_MODEL_NAME}")
         self.stdout.write(f"Cache directory: {settings.NLP_MODEL_CACHE_DIR}")
+        self.stdout.write(f"Backend: {settings.NLP_BACKEND}")
         try:
             model = get_model()
         except ModelUnavailableError as exc:

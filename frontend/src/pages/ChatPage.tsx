@@ -294,7 +294,7 @@ export function ChatPage() {
           </div>
 
           <div className="chat__composer">
-            <Composer ref={composerRef} onSend={ask} busy={busy} notice={modelLoading ? "The assistant is starting up, so your first answer may take a minute." : undefined} />
+            <Composer ref={composerRef} onSend={ask} busy={busy} notice={modelLoading ? "The assistant is starting up, so your first answer may take a few seconds." : undefined} />
           </div>
           <div className="visually-hidden" role="status" aria-live="polite">
             {announcement}
