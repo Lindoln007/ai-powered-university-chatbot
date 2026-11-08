@@ -1,0 +1,508 @@
+{
+  "metadata": {
+    "title": "University chatbot knowledge base - initial demonstration dataset",
+    "institutional_context": "DMI St. John the Baptist University (Malawi)",
+    "version": "1.0.0",
+    "created": "2026-11-07",
+    "disclaimer": "All records in this file are HYPOTHETICAL DEMONSTRATION DATA written for an academic software engineering prototype. They have NOT been verified with DMI St. John the Baptist University and must not be presented as official university information. No real fees, dates, phone numbers or e-mail addresses are included. Replace or verify each record before any real use.",
+    "defaults": {
+      "source_description": "Hypothetical demonstration data prepared for the AI Powered University Chatbot academic prototype. Not verified with DMI St. John the Baptist University.",
+      "source_url": "",
+      "verification_status": "unverified",
+      "publication_status": "published",
+      "information_type": "demonstration"
+    }
+  },
+  "categories": [
+    {"name": "University General Information", "slug": "general-information", "intent": "general_university_enquiry", "description": "General information about the university, its mission, status and campuses."},
+    {"name": "Academic Programmes", "slug": "academic-programmes", "intent": "programme_enquiry", "description": "Degree, diploma and certificate programmes, study modes and programme duration."},
+    {"name": "Admissions", "slug": "admissions", "intent": "admissions_enquiry", "description": "Application procedures, entry requirements and admission decisions."},
+    {"name": "Tuition and Fees", "slug": "tuition-and-fees", "intent": "fees_enquiry", "description": "Tuition, other fees, payment methods, instalments and financial aid."},
+    {"name": "Student Registration", "slug": "student-registration", "intent": "registration_enquiry", "description": "Semester registration, course registration and student identification."},
+    {"name": "Examinations", "slug": "examinations", "intent": "examination_enquiry", "description": "Examination procedures, grading, results and appeals."},
+    {"name": "Academic Calendar", "slug": "academic-calendar", "intent": "academic_calendar_enquiry", "description": "Semester dates, holidays and important academic dates."},
+    {"name": "Student Affairs", "slug": "student-affairs", "intent": "student_services_enquiry", "description": "Student life, clubs, student union, sports and conduct."},
+    {"name": "Library Services", "slug": "library-services", "intent": "library_enquiry", "description": "Library facilities, borrowing, opening hours and electronic resources."},
+    {"name": "Accommodation", "slug": "accommodation", "intent": "accommodation_enquiry", "description": "On-campus hostels and off-campus housing."},
+    {"name": "Student Support", "slug": "student-support", "intent": "student_services_enquiry", "description": "Academic advising, counselling, health, disability and career support."},
+    {"name": "University Contact Information", "slug": "contact-information", "intent": "contact_information_enquiry", "description": "How to contact university offices."}
+  ],
+  "faqs": [
+    {
+      "reference_code": "GEN-001",
+      "category": "general-information",
+      "question": "What is DMI St. John the Baptist University?",
+      "answer": "DMI St. John the Baptist University is a higher education institution in Malawi. This prototype uses it only as an institutional context; detailed facts about its history, ownership and structure have not been verified in this demonstration knowledge base. Please refer to official university publications for authoritative information.",
+      "alternative_questions": ["Tell me about the university", "What kind of institution is this university?", "Can you give me some background on the university?", "What is this university about?"],
+      "keywords": ["about", "university", "background", "overview"]
+    },
+    {
+      "reference_code": "GEN-002",
+      "category": "general-information",
+      "question": "Where is the university located?",
+      "answer": "The university is located in Malawi. Exact campus addresses and directions have not been verified for this prototype, so please confirm the location of the campus you wish to visit with the university's official communication channels before travelling.",
+      "alternative_questions": ["Where is the campus?", "What is the address of the university?", "How do I find the university?", "In which town is the university?"],
+      "keywords": ["location", "address", "campus", "directions"]
+    },
+    {
+      "reference_code": "GEN-003",
+      "category": "general-information",
+      "question": "Is the university accredited?",
+      "answer": "In Malawi, higher education institutions are regulated by the National Council for Higher Education (NCHE). Prospective students should check the current accreditation status of the university and of their chosen programme directly with the NCHE or the university's Registrar's Office. This prototype does not hold verified accreditation records.",
+      "alternative_questions": ["Is the university recognised by the government?", "Are the degrees accredited?", "Is this a registered university?", "Is the university approved by NCHE?"],
+      "keywords": ["accreditation", "recognised", "NCHE", "registered"]
+    },
+    {
+      "reference_code": "GEN-004",
+      "category": "general-information",
+      "question": "What is the mission and vision of the university?",
+      "answer": "For demonstration purposes, the chatbot can describe the university's mission as providing quality, values-based higher education that serves students and the wider community. The official mission and vision statements should be obtained from the university's prospectus or official website.",
+      "alternative_questions": ["What are the university's core values?", "What does the university stand for?", "What is the university's vision statement?"],
+      "keywords": ["mission", "vision", "values"]
+    },
+    {
+      "reference_code": "GEN-005",
+      "category": "general-information",
+      "question": "How many campuses does the university have?",
+      "answer": "The number of campuses and the programmes offered at each campus have not been verified in this demonstration dataset. Please contact the Registrar's Office or consult the official prospectus for the current list of campuses.",
+      "alternative_questions": ["Does the university have more than one campus?", "Which campuses are there?", "Are there other branches of the university?"],
+      "keywords": ["campuses", "branches", "sites"]
+    },
+    {
+      "reference_code": "PROG-001",
+      "category": "academic-programmes",
+      "question": "What programmes does the university offer?",
+      "answer": "In this demonstration dataset, the university is described as offering undergraduate programmes in areas such as education, business and management, information technology and social sciences, alongside selected diploma and certificate programmes. The official, up-to-date list of programmes is published in the university prospectus and should be confirmed with the Admissions Office.",
+      "alternative_questions": ["Which courses can I study here?", "What academic programmes are available?", "What degrees can I take at the university?", "List the courses offered by the university", "What can I study at this university?"],
+      "keywords": ["programmes", "courses", "degrees", "study", "faculties"]
+    },
+    {
+      "reference_code": "PROG-002",
+      "category": "academic-programmes",
+      "question": "Does the university offer postgraduate programmes?",
+      "answer": "Postgraduate offerings (such as master's degrees or postgraduate diplomas) have not been verified in this demonstration dataset. Please check the current prospectus or contact the Admissions Office to find out whether postgraduate programmes are available and what their entry requirements are.",
+      "alternative_questions": ["Can I do a master's degree here?", "Are there postgraduate courses?", "Does the university offer MBA or masters programmes?", "Can I study for a postgraduate diploma?"],
+      "keywords": ["postgraduate", "masters", "MBA", "graduate"]
+    },
+    {
+      "reference_code": "PROG-003",
+      "category": "academic-programmes",
+      "question": "How long does a bachelor's degree take to complete?",
+      "answer": "As a hypothetical example, full-time bachelor's degree programmes in Malawi commonly take about four years, while diplomas and certificates are shorter. The exact duration of each programme at this university must be confirmed in the official prospectus.",
+      "alternative_questions": ["How many years is a degree programme?", "What is the duration of an undergraduate course?", "How long will it take me to graduate?", "How long is a diploma programme?"],
+      "keywords": ["duration", "years", "length", "bachelor"]
+    },
+    {
+      "reference_code": "PROG-004",
+      "category": "academic-programmes",
+      "question": "Are diploma and certificate programmes available?",
+      "answer": "This demonstration dataset assumes that some diploma and certificate programmes are available in addition to degree programmes. Which programmes are currently offered, and their entry requirements, should be confirmed with the Admissions Office.",
+      "alternative_questions": ["Can I study for a diploma?", "Do you offer short certificate courses?", "Are there non-degree programmes?"],
+      "keywords": ["diploma", "certificate", "short courses"]
+    },
+    {
+      "reference_code": "PROG-005",
+      "category": "academic-programmes",
+      "question": "Can I study part-time, in the evening or through distance learning?",
+      "answer": "Hypothetically, universities in Malawi often provide weekend, evening (parallel) or open and distance learning options for working students. Whether these study modes are available at this university, and for which programmes, must be confirmed with the Admissions Office.",
+      "alternative_questions": ["Are there weekend classes?", "Can I study while working?", "Do you offer online or distance learning?", "Is there a part-time option?", "Are there evening classes for working people?"],
+      "keywords": ["part-time", "weekend", "distance", "online", "evening", "mode of study"]
+    },
+    {
+      "reference_code": "ADM-001",
+      "category": "admissions",
+      "question": "How do I apply for admission?",
+      "answer": "In this demonstration scenario, applicants obtain an application form from the Admissions Office (or an official online portal if one is available), complete it, attach certified copies of their academic certificates and identification, pay the application fee, and submit the application before the stated deadline. Please confirm the current application procedure with the Admissions Office.",
+      "alternative_questions": ["How can I join the university?", "What is the application process?", "Where do I get an application form?", "How do I submit my application?", "How to apply to the university?"],
+      "keywords": ["apply", "application", "admission", "form", "enrol"]
+    },
+    {
+      "reference_code": "ADM-002",
+      "category": "admissions",
+      "question": "What are the admission requirements?",
+      "answer": "As a hypothetical example, undergraduate applicants in Malawi are usually expected to hold a Malawi School Certificate of Education (MSCE) or an equivalent qualification with a minimum number of credits, often including English. Specific requirements differ by programme. The university's actual entry requirements must be verified with the Admissions Office.",
+      "alternative_questions": ["What qualifications do I need?", "What grades are required?", "How can I qualify for admission?", "What do I need to join the university?", "What are the entry requirements?"],
+      "keywords": ["requirements", "qualifications", "MSCE", "grades", "entry"]
+    },
+    {
+      "reference_code": "ADM-003",
+      "category": "admissions",
+      "question": "When is the application deadline?",
+      "answer": "Application deadlines change every academic year and have not been verified in this demonstration dataset. Please check the official admissions advertisement or contact the Admissions Office for the current intake dates and closing date.",
+      "alternative_questions": ["When do applications close?", "What is the last day to apply?", "When is the next intake?", "When should I submit my application?"],
+      "keywords": ["deadline", "closing date", "intake"]
+    },
+    {
+      "reference_code": "ADM-004",
+      "category": "admissions",
+      "question": "Can international students apply?",
+      "answer": "In this demonstration scenario, international applicants may apply but may need to provide evidence that their qualifications are equivalent to Malawian entry requirements, a valid passport and the relevant study permit. Requirements and fees for international students must be confirmed with the Admissions Office.",
+      "alternative_questions": ["I am not Malawian, can I study here?", "What do foreign students need to apply?", "Do you accept students from other countries?"],
+      "keywords": ["international", "foreign", "passport", "study permit"]
+    },
+    {
+      "reference_code": "ADM-005",
+      "category": "admissions",
+      "question": "How will I know if my application was successful?",
+      "answer": "Hypothetically, successful applicants receive an offer letter from the Admissions Office, and admission lists may also be published through official university channels. If you have applied and have not heard back, contact the Admissions Office with your application details.",
+      "alternative_questions": ["When will admission results be released?", "How do I check my admission status?", "Have I been accepted?", "How are offer letters sent?"],
+      "keywords": ["offer letter", "admission status", "accepted", "results"]
+    },
+    {
+      "reference_code": "ADM-006",
+      "category": "admissions",
+      "question": "Is there a mature entry route for adult applicants?",
+      "answer": "Some universities offer mature-entry admission for adult applicants who do not meet standard entry requirements, usually based on age, work experience and an entrance assessment. Whether this route exists at this university has not been verified; please ask the Admissions Office.",
+      "alternative_questions": ["Can I apply as a mature student?", "I finished school many years ago, can I still be admitted?", "Do you have mature entry?"],
+      "keywords": ["mature entry", "adult learner", "work experience"]
+    },
+    {
+      "reference_code": "ADM-007",
+      "category": "admissions",
+      "question": "Can I transfer from another university?",
+      "answer": "In this demonstration scenario, students from other recognised institutions may apply for transfer and request credit for courses already completed. Credit transfer is usually assessed case by case using official transcripts and course outlines. Please contact the Admissions Office or the Registrar for the actual policy.",
+      "alternative_questions": ["Can I transfer my credits?", "I studied at another college, can I continue here?", "How does credit transfer work?"],
+      "keywords": ["transfer", "credit transfer", "transcript"]
+    },
+    {
+      "reference_code": "FEE-001",
+      "category": "tuition-and-fees",
+      "question": "How much are tuition fees?",
+      "answer": "Tuition fees vary by programme, study mode and year, and the official fee structure has not been verified for this prototype. No fee amounts are included in this demonstration dataset to avoid publishing incorrect figures. Please request the current fee schedule from the Finance Office or the Admissions Office.",
+      "alternative_questions": ["What is the cost of studying here?", "How much does a degree cost?", "What are the school fees?", "How expensive is the university?", "What is the fee structure?"],
+      "keywords": ["tuition", "fees", "cost", "price"]
+    },
+    {
+      "reference_code": "FEE-002",
+      "category": "tuition-and-fees",
+      "question": "How can I pay my fees?",
+      "answer": "Hypothetically, fees are paid by bank deposit or bank transfer into the university's official account, and the proof of payment is submitted to the Finance Office for receipting. Always confirm the official bank account details directly with the Finance Office and never pay into a personal account.",
+      "alternative_questions": ["What are the payment methods for fees?", "Which bank account do I pay school fees into?", "Can I pay fees by mobile money?", "Where do I pay tuition?"],
+      "keywords": ["payment", "bank", "deposit", "mobile money"]
+    },
+    {
+      "reference_code": "FEE-003",
+      "category": "tuition-and-fees",
+      "question": "Can fees be paid in instalments?",
+      "answer": "In this demonstration scenario, students may be allowed to pay fees in agreed instalments within the semester. Whether instalments are allowed, and the required minimum first payment, must be confirmed with the Finance Office.",
+      "alternative_questions": ["Can I pay school fees in parts?", "Is there a payment plan?", "Do I have to pay all the fees at once?"],
+      "keywords": ["instalments", "payment plan", "partial payment"]
+    },
+    {
+      "reference_code": "FEE-004",
+      "category": "tuition-and-fees",
+      "question": "Are scholarships or financial aid available?",
+      "answer": "Students in Malawi may be able to apply for support such as loans and grants from the Higher Education Students' Loans and Grants Board (HESLGB), as well as sponsorships or bursaries from other organisations. Whether the university offers its own scholarships has not been verified; please ask the Finance Office or the Dean of Students.",
+      "alternative_questions": ["Can I get a scholarship?", "Is there financial assistance for needy students?", "Can I get a student loan?", "Are there bursaries available?"],
+      "keywords": ["scholarship", "bursary", "loan", "financial aid", "HESLGB"]
+    },
+    {
+      "reference_code": "FEE-005",
+      "category": "tuition-and-fees",
+      "question": "What happens if I do not pay my fees on time?",
+      "answer": "As a hypothetical example, students with outstanding fee balances may be restricted from registering, sitting examinations or receiving results until the balance is cleared or a payment arrangement is agreed. Please confirm the actual policy with the Finance Office.",
+      "alternative_questions": ["Can I write exams with a fee balance?", "What if I have outstanding fees?", "Is there a penalty for late fee payment?"],
+      "keywords": ["late payment", "balance", "outstanding fees", "penalty"]
+    },
+    {
+      "reference_code": "REG-001",
+      "category": "student-registration",
+      "question": "How do I register for a semester?",
+      "answer": "In this demonstration scenario, continuing students register at the start of each semester by paying the required fees, completing the registration form or online registration, and having their courses approved by their department. Registration dates are announced by the Registrar's Office.",
+      "alternative_questions": ["What is the registration process each semester?", "How do I enrol for the new semester?", "When and how do I register for classes?", "How to complete semester registration?"],
+      "keywords": ["registration", "enrol", "semester", "register"]
+    },
+    {
+      "reference_code": "REG-002",
+      "category": "student-registration",
+      "question": "What documents do I need for registration as a new student?",
+      "answer": "Hypothetically, new students are asked to bring their offer letter, original academic certificates and certified copies, a national ID or passport, passport-size photographs and proof of fee payment. Please confirm the full list in your offer letter or with the Registrar's Office.",
+      "alternative_questions": ["What should I bring on registration day?", "Which documents are required for first-year registration?", "What do new students need to register?"],
+      "keywords": ["documents", "new students", "orientation", "certificates"]
+    },
+    {
+      "reference_code": "REG-003",
+      "category": "student-registration",
+      "question": "Can I register late?",
+      "answer": "In this demonstration scenario, late registration may be permitted for a short period after the official registration deadline, possibly with a late registration fee and approval from the Registrar. Please contact the Registrar's Office as early as possible if you cannot register on time.",
+      "alternative_questions": ["What if I miss the registration deadline?", "Is there a fee for late registration?", "I am late for registration, what should I do?"],
+      "keywords": ["late registration", "deadline", "missed registration"]
+    },
+    {
+      "reference_code": "REG-004",
+      "category": "student-registration",
+      "question": "How do I add or drop a course?",
+      "answer": "Hypothetically, students can add or drop courses during the first weeks of the semester by completing an add/drop form approved by their Head of Department and submitting it to the Registrar's Office. Changes after the add/drop period may not be allowed.",
+      "alternative_questions": ["Can I change my courses after registration?", "How do I withdraw from a module?", "What is the add and drop period?"],
+      "keywords": ["add", "drop", "change course", "module"]
+    },
+    {
+      "reference_code": "REG-005",
+      "category": "student-registration",
+      "question": "How do I get a student ID card?",
+      "answer": "In this demonstration scenario, student identity cards are issued after successful registration. Students may need to provide a passport-size photograph and proof of registration. Lost cards are usually replaced through the Registrar's Office, possibly for a fee.",
+      "alternative_questions": ["Where can I collect my student card?", "I lost my student ID, what do I do?", "How do I replace my identity card?"],
+      "keywords": ["student ID", "identity card", "replacement"]
+    },
+    {
+      "reference_code": "EXAM-001",
+      "category": "examinations",
+      "question": "How do examinations work?",
+      "answer": "As a hypothetical example, each course is assessed through continuous assessment (assignments, tests and practical work) and an end-of-semester examination. Students must be properly registered and meet attendance requirements to sit examinations. The official assessment regulations should be confirmed in the university's academic regulations.",
+      "alternative_questions": ["How are students assessed?", "When are end of semester exams written?", "What is the examination system?", "How is my final mark calculated?"],
+      "keywords": ["examinations", "assessment", "continuous assessment", "exams"]
+    },
+    {
+      "reference_code": "EXAM-002",
+      "category": "examinations",
+      "question": "How do I check my examination results?",
+      "answer": "In this demonstration scenario, examination results are released after approval by the university's examination board and are made available through official university channels, such as notice boards, the department, or a student portal if available. Students with outstanding fees may have results withheld.",
+      "alternative_questions": ["Where can I see my exam results?", "When will results be released?", "How can I get my transcript?", "How do I view my grades?"],
+      "keywords": ["results", "grades", "transcript", "marks"]
+    },
+    {
+      "reference_code": "EXAM-003",
+      "category": "examinations",
+      "question": "What happens if I miss an examination?",
+      "answer": "Hypothetically, students who miss an examination for a valid reason, such as illness supported by a medical certificate, may apply for a deferred or special examination through their Head of Department. Missing an examination without an approved reason may result in a fail grade.",
+      "alternative_questions": ["I was sick during exams, what should I do?", "Can I write a deferred exam?", "How do supplementary examinations work?", "Can I rewrite a failed exam?"],
+      "keywords": ["missed exam", "deferred", "supplementary", "resit", "sick"]
+    },
+    {
+      "reference_code": "EXAM-004",
+      "category": "examinations",
+      "question": "How are students graded?",
+      "answer": "As a hypothetical example, courses are graded using percentage marks that are converted to letter grades and grade points, which are then used to calculate a grade point average (GPA) and the final degree classification. The official grading scale must be confirmed in the university's academic regulations.",
+      "alternative_questions": ["What is the grading system?", "What is the pass mark?", "How is GPA calculated?", "How are degree classes determined?"],
+      "keywords": ["grading", "GPA", "pass mark", "classification"]
+    },
+    {
+      "reference_code": "EXAM-005",
+      "category": "examinations",
+      "question": "How do I appeal my examination result?",
+      "answer": "In this demonstration scenario, a student who believes a result is incorrect can submit a written appeal or remarking request to the Examinations Office or Registrar within a set period after results are published, possibly with a fee. Please confirm the official appeals procedure in the academic regulations.",
+      "alternative_questions": ["Can my exam be remarked?", "I think my grade is wrong, what can I do?", "How do I query my results?"],
+      "keywords": ["appeal", "remark", "query results"]
+    },
+    {
+      "reference_code": "EXAM-006",
+      "category": "examinations",
+      "question": "What are the examination rules?",
+      "answer": "As a hypothetical example, students must bring their student ID card, arrive on time, and must not bring unauthorised materials or electronic devices into the examination room. Examination malpractice such as cheating is treated as a serious disciplinary offence. The official examination rules are published by the university.",
+      "alternative_questions": ["What is not allowed in the exam room?", "What happens if someone is caught cheating?", "Can I take my phone into the exam?"],
+      "keywords": ["exam rules", "cheating", "malpractice", "exam room"]
+    },
+    {
+      "reference_code": "CAL-001",
+      "category": "academic-calendar",
+      "question": "Where can I access the academic calendar?",
+      "answer": "The academic calendar, which lists semester dates, registration periods, examination periods and holidays, is normally published by the Registrar's Office at the start of the academic year. This prototype does not contain verified calendar dates; please obtain the current calendar from the Registrar's Office or official university channels.",
+      "alternative_questions": ["Where is the university calendar?", "Can I see the academic schedule for this year?", "Where do I find important academic dates?"],
+      "keywords": ["academic calendar", "schedule", "dates"]
+    },
+    {
+      "reference_code": "CAL-002",
+      "category": "academic-calendar",
+      "question": "When does the semester start?",
+      "answer": "Semester opening dates change every year and have not been verified in this demonstration dataset. Please check the current academic calendar from the Registrar's Office or your offer letter for the opening and registration dates.",
+      "alternative_questions": ["When do classes begin?", "When does the new academic year open?", "What is the opening date for first-year students?", "When do lectures start?"],
+      "keywords": ["semester start", "opening date", "classes begin"]
+    },
+    {
+      "reference_code": "CAL-003",
+      "category": "academic-calendar",
+      "question": "When are the holidays and semester breaks?",
+      "answer": "Holiday and semester break dates are set in the official academic calendar each year. This demonstration dataset does not include verified dates; please consult the Registrar's Office for the current calendar.",
+      "alternative_questions": ["When do we close for holidays?", "How long is the semester break?", "When does the semester end?"],
+      "keywords": ["holidays", "break", "vacation", "semester end"]
+    },
+    {
+      "reference_code": "AFF-001",
+      "category": "student-affairs",
+      "question": "What clubs and societies can students join?",
+      "answer": "In this demonstration scenario, students can join a range of clubs and societies, such as academic societies, religious groups, debate, drama and community service clubs. The current list of active clubs can be obtained from the Dean of Students' Office.",
+      "alternative_questions": ["Are there student clubs?", "What extracurricular activities are available?", "How do I join a society?"],
+      "keywords": ["clubs", "societies", "extracurricular", "activities"]
+    },
+    {
+      "reference_code": "AFF-002",
+      "category": "student-affairs",
+      "question": "Is there a student union?",
+      "answer": "Hypothetically, students are represented by an elected student union or students' representative council that communicates student concerns to university management. Details of the current student leadership can be obtained from the Dean of Students' Office.",
+      "alternative_questions": ["Who represents students?", "How do I contact the student representatives?", "Is there a students' council?"],
+      "keywords": ["student union", "SRC", "representatives", "student leadership"]
+    },
+    {
+      "reference_code": "AFF-003",
+      "category": "student-affairs",
+      "question": "What sports facilities are available?",
+      "answer": "In this demonstration scenario, students may take part in sports such as football, netball and athletics, subject to the facilities available on their campus. Please contact the Dean of Students' Office or the sports coordinator for current facilities and teams.",
+      "alternative_questions": ["Can I play football at the university?", "Are there sports teams?", "Does the university have a gym?"],
+      "keywords": ["sports", "football", "netball", "gym"]
+    },
+    {
+      "reference_code": "AFF-004",
+      "category": "student-affairs",
+      "question": "Is there a student code of conduct?",
+      "answer": "Hypothetically, all students are expected to follow the university's student rules and code of conduct, which cover behaviour on campus, academic honesty and disciplinary procedures. The official code of conduct is issued by the Dean of Students' Office.",
+      "alternative_questions": ["What are the student rules and regulations?", "What happens if a student breaks the rules?", "Is there a dress code?"],
+      "keywords": ["code of conduct", "rules", "discipline", "dress code"]
+    },
+    {
+      "reference_code": "LIB-001",
+      "category": "library-services",
+      "question": "Does the university have library services?",
+      "answer": "In this demonstration scenario, the university library provides printed books, journals, study spaces and access to electronic resources for registered students and staff. Students usually need their student ID card to use the library. Please confirm services available on your campus with the library staff.",
+      "alternative_questions": ["Is there a library on campus?", "What services does the library offer?", "Can students use the library?", "Where can I find books for my studies?"],
+      "keywords": ["library", "books", "study space"]
+    },
+    {
+      "reference_code": "LIB-002",
+      "category": "library-services",
+      "question": "What are the library opening hours?",
+      "answer": "Library opening hours have not been verified for this prototype and may change during examination periods and holidays. Please check the notice at the library entrance or ask library staff for the current opening hours.",
+      "alternative_questions": ["When is the library open?", "Is the library open on weekends?", "What time does the library close?"],
+      "keywords": ["opening hours", "library times", "weekend"]
+    },
+    {
+      "reference_code": "LIB-003",
+      "category": "library-services",
+      "question": "How do I borrow books from the library?",
+      "answer": "Hypothetically, registered students can borrow books by presenting their student ID card at the library desk. Loan periods and the number of books allowed may vary, and overdue books may attract fines. Please ask library staff for the current borrowing rules.",
+      "alternative_questions": ["How many books can I borrow?", "What is the loan period for library books?", "Are there fines for late returns?"],
+      "keywords": ["borrow", "loan", "fines", "return books"]
+    },
+    {
+      "reference_code": "LIB-004",
+      "category": "library-services",
+      "question": "Can I access e-books and online journals?",
+      "answer": "In this demonstration scenario, students may access electronic books, online journals and research databases through the library, either on campus or remotely with library-issued credentials. Please contact the library for the list of available e-resources and how to log in.",
+      "alternative_questions": ["Does the library have online resources?", "How do I access electronic journals?", "Can I use the library databases from home?"],
+      "keywords": ["e-books", "online journals", "e-resources", "databases"]
+    },
+    {
+      "reference_code": "ACC-001",
+      "category": "accommodation",
+      "question": "Where can students obtain accommodation information?",
+      "answer": "In this demonstration scenario, accommodation information is provided by the Dean of Students' Office (or an accommodation/hostels office), which can explain on-campus hostel availability and advise on off-campus options. Please contact that office for current information.",
+      "alternative_questions": ["Does the university provide accommodation?", "Is there housing for students?", "Where can I stay while studying?", "Who handles student accommodation?"],
+      "keywords": ["accommodation", "housing", "hostel", "residence"]
+    },
+    {
+      "reference_code": "ACC-002",
+      "category": "accommodation",
+      "question": "How do I apply for a room in the hostel?",
+      "answer": "Hypothetically, students apply for hostel accommodation through the Dean of Students' Office or the accommodation office before the semester begins. Rooms are usually limited and may be allocated on a first-come, first-served basis or with priority for first-year students. Please confirm the application process with the relevant office.",
+      "alternative_questions": ["How do I book a hostel room?", "How are hostel rooms allocated?", "Can first-year students stay on campus?"],
+      "keywords": ["hostel application", "book room", "allocation"]
+    },
+    {
+      "reference_code": "ACC-003",
+      "category": "accommodation",
+      "question": "How much does hostel accommodation cost?",
+      "answer": "Accommodation charges have not been verified for this prototype, so no amounts are given in this demonstration dataset. Please request the current accommodation fees from the Finance Office or the Dean of Students' Office.",
+      "alternative_questions": ["What are the hostel fees?", "How much is a room on campus?", "Is accommodation included in tuition?"],
+      "keywords": ["hostel fees", "accommodation cost", "room price"]
+    },
+    {
+      "reference_code": "ACC-004",
+      "category": "accommodation",
+      "question": "Can the university help me find off-campus accommodation?",
+      "answer": "In this demonstration scenario, the Dean of Students' Office may share general advice or lists of nearby private accommodation, but the university is not responsible for private rental agreements. Students should inspect any private accommodation before paying.",
+      "alternative_questions": ["Where can I rent a house near campus?", "Is there private housing near the university?", "Can I live outside campus?"],
+      "keywords": ["off-campus", "private accommodation", "renting"]
+    },
+    {
+      "reference_code": "SUP-001",
+      "category": "student-support",
+      "question": "Where can I get assistance with academic matters?",
+      "answer": "In this demonstration scenario, students can get academic help from their lecturers during consultation hours, their academic advisor or Head of Department, and the Registrar's Office for administrative academic matters. Please confirm the support available in your faculty.",
+      "alternative_questions": ["Who can help me with my studies?", "I am struggling academically, where can I get help?", "Is there academic advising?", "Who do I talk to about my course problems?"],
+      "keywords": ["academic support", "advisor", "help", "lecturer"]
+    },
+    {
+      "reference_code": "SUP-002",
+      "category": "student-support",
+      "question": "Are counselling services available?",
+      "answer": "Hypothetically, students can access counselling and pastoral support through the Dean of Students' Office or a university counsellor or chaplain. Conversations with counsellors should be confidential. If you are in immediate danger, seek emergency help immediately.",
+      "alternative_questions": ["Is there someone I can talk to about personal problems?", "Does the university have a counsellor?", "Where can I get mental health support?", "I feel stressed, who can help me?"],
+      "keywords": ["counselling", "mental health", "stress", "pastoral care"]
+    },
+    {
+      "reference_code": "SUP-003",
+      "category": "student-support",
+      "question": "Are health services available for students?",
+      "answer": "In this demonstration scenario, students can obtain basic health services or first aid on campus where available, or be referred to nearby health facilities. Please confirm health service arrangements with the Dean of Students' Office.",
+      "alternative_questions": ["Is there a clinic on campus?", "Where do students go when they are sick?", "Does the university provide medical services?"],
+      "keywords": ["health", "clinic", "medical", "sick"]
+    },
+    {
+      "reference_code": "SUP-004",
+      "category": "student-support",
+      "question": "What support is available for students with disabilities?",
+      "answer": "Hypothetically, students with disabilities can request reasonable accommodations, such as accessible venues or extra time in examinations, through the Dean of Students' Office. Students are encouraged to inform the university early so arrangements can be made.",
+      "alternative_questions": ["Does the university support disabled students?", "Can I get extra time in exams because of a disability?", "Are the buildings accessible for wheelchair users?"],
+      "keywords": ["disability", "special needs", "accessibility", "inclusion"]
+    },
+    {
+      "reference_code": "SUP-005",
+      "category": "student-support",
+      "question": "Does the university offer career guidance and internship support?",
+      "answer": "In this demonstration scenario, students can seek career advice, help with CVs and information about internships or industrial attachments from their department or a careers office where available. Please confirm the career services offered with the Dean of Students' Office.",
+      "alternative_questions": ["Can the university help me find an internship?", "Is there career counselling?", "How do I get an industrial attachment?"],
+      "keywords": ["career", "internship", "attachment", "CV", "jobs"]
+    },
+    {
+      "reference_code": "CON-001",
+      "category": "contact-information",
+      "question": "How can I contact the university?",
+      "answer": "Verified contact details (telephone numbers, e-mail addresses and postal address) are not included in this demonstration dataset to avoid publishing incorrect information. Please use the contact details published on the university's official website, prospectus or official social media pages.",
+      "alternative_questions": ["What is the university's phone number?", "What is the university email address?", "How do I get in touch with the university?", "What is the contact information of the university?"],
+      "keywords": ["contact", "phone", "email", "address"]
+    },
+    {
+      "reference_code": "CON-002",
+      "category": "contact-information",
+      "question": "Who should I contact about admissions?",
+      "answer": "Admission enquiries are normally handled by the Admissions Office (or the Registrar's Office). Verified contact details for this office are not included in this demonstration dataset; please use the contact details published in official university admission advertisements.",
+      "alternative_questions": ["How do I reach the admissions office?", "Who handles application enquiries?", "Where do I send admission questions?"],
+      "keywords": ["admissions office", "registrar", "enquiries"]
+    },
+    {
+      "reference_code": "CON-003",
+      "category": "contact-information",
+      "question": "How do I contact the finance office?",
+      "answer": "Questions about fees, payments and receipts are normally handled by the Finance Office (Bursar). Verified contact details are not included in this demonstration dataset; please use official university communication channels or visit the Finance Office in person.",
+      "alternative_questions": ["Who do I talk to about fee payments?", "Where is the bursar's office?", "How do I get a receipt for my fees?"],
+      "keywords": ["finance office", "bursar", "accounts", "receipt"]
+    },
+    {
+      "reference_code": "CON-004",
+      "category": "contact-information",
+      "question": "What are the university's office hours?",
+      "answer": "Office hours have not been verified for this prototype. As a hypothetical example, administrative offices commonly open on weekdays during normal working hours. Please confirm the opening hours of the specific office you wish to visit.",
+      "alternative_questions": ["When are the university offices open?", "What time does the administration open?", "Are offices open on Saturday?"],
+      "keywords": ["office hours", "working hours", "opening times"]
+    }
+  ],
+  "articles": [
+    {
+      "reference_code": "ART-001",
+      "category": "admissions",
+      "title": "Guide to applying for undergraduate admission (demonstration)",
+      "content": "This hypothetical guide summarises a typical undergraduate application process. 1. Choose a programme from the official prospectus. 2. Check the entry requirements for that programme. 3. Obtain and complete the application form. 4. Attach certified copies of certificates and identification. 5. Pay the application fee into the official university account. 6. Submit the application before the deadline and keep proof of submission. 7. Wait for an offer letter and follow its registration instructions. All steps must be confirmed with the Admissions Office because this guide is demonstration content."
+    },
+    {
+      "reference_code": "ART-002",
+      "category": "student-registration",
+      "title": "First-year student orientation checklist (demonstration)",
+      "content": "This hypothetical checklist helps new students prepare for orientation: read your offer letter carefully; prepare original certificates and copies; bring identification and passport-size photographs; pay the required fees and keep receipts; attend orientation sessions on academic regulations, library use and student support; register for your courses; and collect your student ID card. Confirm all requirements with the Registrar's Office."
+    },
+    {
+      "reference_code": "ART-003",
+      "category": "student-support",
+      "title": "Where to find help on campus (demonstration)",
+      "content": "This hypothetical overview lists offices that commonly support students: the Registrar's Office for academic records and registration; the Finance Office for fees and receipts; the Dean of Students' Office for welfare, accommodation, clubs and counselling; the library for study resources; and academic departments for course-related questions. Contact details must be obtained from official university sources."
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "description": "Example phrases for semantic intent detection. Add or edit phrases to improve detection; no code changes are needed. Restart the server after editing.",
+  "intents": {
+    "admissions_enquiry": [
+      "How do I apply to the university?",
+      "What are the entry requirements?",
+      "When is the admission deadline?",
+      "How can I get admitted?",
+      "Has my application been accepted?",
+      "Can I apply as a mature or transfer student?",
+      "What qualifications do I need to be admitted?"
+    ],
+    "programme_enquiry": [
+      "What courses are offered?",
+      "Which degree programmes are available?",
+      "How long is the programme?",
+      "Do you offer postgraduate or master's programmes?",
+      "Can I study part-time or by distance learning?",
+      "What subjects can I study?"
+    ],
+    "fees_enquiry": [
+      "How much are the tuition fees?",
+      "How do I pay school fees?",
+      "Can I pay fees in instalments?",
+      "Are scholarships or bursaries available?",
+      "What happens if I have a fee balance?",
+      "What is the cost of studying?",
+      "What are the fees?"
+    ],
+    "registration_enquiry": [
+      "How do I register for the semester?",
+      "What documents do I need for registration?",
+      "Can I register late?",
+      "How do I add or drop a course?",
+      "How do I get my student ID card?",
+      "When is registration?"
+    ],
+    "examination_enquiry": [
+      "When are the exams?",
+      "How do I check my exam results?",
+      "What if I miss an exam?",
+      "What is the grading system?",
+      "How do I appeal my results?",
+      "What are the examination rules?"
+    ],
+    "academic_calendar_enquiry": [
+      "Where is the academic calendar?",
+      "When does the semester start?",
+      "When are the holidays?",
+      "When does the semester end?",
+      "What are the important academic dates?"
+    ],
+    "student_services_enquiry": [
+      "What clubs can I join?",
+      "Is there a student union?",
+      "Is there counselling for students?",
+      "Where can I get academic help?",
+      "Is there a clinic for students?",
+      "What support is there for disabled students?",
+      "Can the university help me find an internship?",
+      "What sports can I play?"
+    ],
+    "library_enquiry": [
+      "Is there a library?",
+      "When is the library open?",
+      "How do I borrow books?",
+      "Can I access e-books and journals?",
+      "Where can I find study materials?"
+    ],
+    "accommodation_enquiry": [
+      "Does the university have hostels?",
+      "How do I apply for accommodation?",
+      "How much is a hostel room?",
+      "Where can I live near campus?",
+      "Is student housing available?"
+    ],
+    "contact_information_enquiry": [
+      "How can I contact the university?",
+      "What is the phone number of the university?",
+      "What is the email address of the admissions office?",
+      "Who should I call at the finance office?",
+      "What are the office hours?"
+    ],
+    "general_university_enquiry": [
+      "Tell me about the university",
+      "Where is the university located?",
+      "Is the university accredited?",
+      "What is the mission of the university?",
+      "How many campuses are there?"
+    ]
+  }
+}
