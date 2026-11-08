@@ -1,9 +1,9 @@
-# AI Powered University Chatbot (Backend)
+# AI Powered University Chatbot
 
 **Project:** 351 CP 81 Comprehension, Project 2
 **Student:** Asante Mbaya
 **Institution:** DMI St. John the Baptist University
-**Scope:** Backend only. This is a REST API for a separately developed frontend.
+**Scope:** A Django REST API backend (sections 1–16) and a React web interface, "Campus Desk" (section 17).
 
 > **Important: demonstration data.** The knowledge base that ships with this project is
 > **hypothetical demonstration data** written for an academic prototype. It has **not** been
@@ -31,6 +31,7 @@
 14. [Performance on the development laptop](#14-performance-on-the-development-laptop)
 15. [Known limitations](#15-known-limitations)
 16. [Future improvements](#16-future-improvements)
+17. [Web interface (Campus Desk)](#17-web-interface-campus-desk)
 
 ---
 
@@ -789,3 +790,63 @@ Optimisations applied for this hardware:
 * Redis cache for shared rate limiting and caching across processes. Background task queue for
   bulk embedding jobs.
 * Frontend application (separate project, consuming this API).
+
+## 17. Web interface (Campus Desk)
+
+`frontend/` contains the user interface: a React 19 + TypeScript single-page app built with
+Vite. It talks to the backend only through the REST API above.
+
+### 17.1 Screens
+
+| Route | Who | What it does |
+|---|---|---|
+| `/` | everyone | Welcome page laid out like a handbook's contents page: every topic, with real example questions to tap |
+| `/c/:id` | owner | A conversation. Answers show their topic, the answer, a source footnote (FAQ code and question) and a **Demonstration information** stamp that expands to explain itself. Includes clarification options, fallback with "see all topics", and Helpful / Not helpful feedback with an optional comment |
+| `/signin` | everyone | Sign in (username or e-mail) or create an account (prospective or current student). Guest conversations move into the account automatically |
+| `/staff` | administrators | Analytics: at-a-glance figures, questions per day (line chart with a table fallback), a "Needs attention" queue for unanswered questions (resolve or mark out of scope), most-asked questions and answers by topic. Links to Django Admin for editing FAQs |
+
+The conversation history sits in a side rail (a drawer on phones), with rename and delete
+actions. Guests are fully supported via the `X-Guest-Token` session.
+
+### 17.2 Design
+
+* **Direction:** calm, careful and plainspoken, like a well-made student handbook.
+* **Type:** Literata (headings and answers) with Atkinson Hyperlegible Next (interface text),
+  designed by the Braille Institute for legibility. Both are self-hosted, so there are no
+  third-party font requests.
+* **Colour:** OKLCH design tokens in `frontend/src/styles/tokens.css`, using a deep lake
+  blue-green brand hue with tinted neutrals. Ochre is reserved for demonstration-information
+  labels. There is a light theme by default and a dark theme that follows the device or the
+  toggle.
+* **Accessibility (measured):** every text colour pair meets WCAG AA (lowest 4.61:1, light
+  metadata text). There is full keyboard use, visible focus and a skip link. New answers are
+  announced to screen readers. 44 px touch targets on touch screens, reduced-motion support,
+  IME-safe Enter-to-send, no horizontal scrolling at 375 px, in landscape or at 200% text size.
+* **Weight:** about 95 KB of JavaScript and 9 KB of CSS gzipped, plus about 86 KB of fonts
+  (Latin subset) on the first visit.
+
+### 17.3 Running it
+
+Requires Node.js 20 or newer. Start the backend first (section 11), then:
+
+```powershell
+cd frontend
+npm install
+npm run dev          # http://localhost:5173
+```
+
+The Vite development server proxies `/api` and `/admin` to Django at `http://127.0.0.1:8000`
+(override with `VITE_BACKEND_URL`), so no CORS setup is needed during development.
+
+For deployment, run `npm run build` and serve `frontend/dist/` from the same origin as the API
+(for example behind one web server that routes `/api/` and `/admin/` to Django and everything
+else to `index.html`). If the interface is hosted on a different origin, add that origin to
+`CORS_ALLOWED_ORIGINS` and change the API base URL in `frontend/src/api/client.ts`.
+
+### 17.4 Notes
+
+* After a server restart, the first answer can take a minute while the language model loads
+  (see section 14). The interface says so in the message box instead of leaving users guessing.
+* Feedback can be given once per answer. After a page reload the buttons reappear, but a second
+  rating is politely ignored.
+
