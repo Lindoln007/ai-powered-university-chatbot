@@ -1,27 +1,16 @@
 import { useState, type FormEvent, type ReactNode } from "react";
+import { ArrowLeft, History, MonitorSmartphone, ShieldCheck } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 
 import { ApiError } from "../api/client";
 import { useAuth } from "../auth/AuthContext";
-import { TopBar } from "../components/TopBar";
+import { Horizon, Mark } from "../components/Brand";
 
 type Mode = "signin" | "register";
 
-function Field({
-  id,
-  label,
-  error,
-  hint,
-  children,
-}: {
-  id: string;
-  label: string;
-  error?: string;
-  hint?: string;
-  children: ReactNode;
-}) {
+function Field({ id, label, error, hint, children }: { id: string; label: string; error?: string; hint?: string; children: ReactNode }) {
   return (
-    <div className={`field${error ? " field--invalid" : ""}`}>
+    <div className={`field${error ? " is-invalid" : ""}`}>
       <label htmlFor={id}>{label}</label>
       {children}
       {hint && !error && (
@@ -74,30 +63,53 @@ export function SignInPage() {
   }
 
   const fieldError = (name: string) => error?.field(name);
-  const describedBy = (name: string, hint = false) =>
-    fieldError(name) ? `${name}-error` : hint ? `${name}-hint` : undefined;
-  const formLevelError = error && !error.details ? error.message : error?.details?.non_field_errors?.[0];
+  const aria = (name: string, hint = false) => ({
+    "aria-describedby": fieldError(name) ? `${name}-error` : hint ? `${name}-hint` : undefined,
+    "aria-invalid": Boolean(fieldError(name)) || undefined,
+  });
+  const formError = error && !error.details ? error.message : error?.details?.non_field_errors?.[0];
 
   return (
-    <div className="app">
-      <TopBar />
-      <main className="auth" id="main">
-        <div className="auth__intro">
-          <h1 className="auth__title">{mode === "signin" ? "Sign in" : "Create an account"}</h1>
-          <p className="auth__lede">
-            An account keeps your conversations, so you can return to an answer on any device. You can also{" "}
-            <Link to="/">keep chatting as a guest</Link>.
-          </p>
+    <div className="auth">
+      <aside className="auth__art">
+        <Horizon />
+        <Link to="/" className="brandlink">
+          <Mark size={38} />
+          <span className="brandlink__name">Campus Desk</span>
+        </Link>
+        <div className="auth__pitch">
+          <h2>Answers about university life, whenever you need them.</h2>
+          <ul>
+            <li>
+              <History aria-hidden="true" size={20} />
+              Your chats are saved, so you can return to an answer later.
+            </li>
+            <li>
+              <MonitorSmartphone aria-hidden="true" size={20} />
+              Pick up on any phone or computer.
+            </li>
+            <li>
+              <ShieldCheck aria-hidden="true" size={20} />
+              Every answer shows its source and whether it is verified.
+            </li>
+          </ul>
         </div>
+      </aside>
 
-        <div className="auth__switch" role="tablist" aria-label="Account">
+      <main className="auth__main" id="main">
+        <Link to="/" className="inline-link auth__back">
+          <ArrowLeft aria-hidden="true" size={16} /> Keep chatting as a guest
+        </Link>
+        <h1>{mode === "signin" ? "Welcome back" : "Create your account"}</h1>
+
+        <div className="segmented" role="tablist" aria-label="Account">
           {(["signin", "register"] as const).map((option) => (
             <button
               key={option}
               type="button"
               role="tab"
               aria-selected={mode === option}
-              className={`auth__tab${mode === option ? " auth__tab--active" : ""}`}
+              className={mode === option ? "is-active" : ""}
               onClick={() => {
                 setMode(option);
                 setError(null);
@@ -108,25 +120,25 @@ export function SignInPage() {
           ))}
         </div>
 
-        <form className="auth__form" onSubmit={onSubmit} noValidate key={mode}>
-          {formLevelError && (
-            <div className="form-error" role="alert">
-              {formLevelError}
+        <form className="form" onSubmit={onSubmit} noValidate key={mode}>
+          {formError && (
+            <div className="form__error" role="alert">
+              {formError}
             </div>
           )}
 
           {mode === "signin" ? (
             <>
               <Field id="username" label="Username or email" error={fieldError("username")}>
-                <input id="username" name="username" autoComplete="username" required autoFocus aria-describedby={describedBy("username")} aria-invalid={Boolean(fieldError("username")) || undefined} />
+                <input id="username" name="username" autoComplete="username" required autoFocus {...aria("username")} />
               </Field>
               <Field id="password" label="Password" error={fieldError("password")}>
-                <input id="password" name="password" type="password" autoComplete="current-password" required aria-describedby={describedBy("password")} aria-invalid={Boolean(fieldError("password")) || undefined} />
+                <input id="password" name="password" type="password" autoComplete="current-password" required {...aria("password")} />
               </Field>
             </>
           ) : (
             <>
-              <div className="field-row">
+              <div className="form__row">
                 <Field id="first_name" label="First name" error={fieldError("first_name")}>
                   <input id="first_name" name="first_name" autoComplete="given-name" autoFocus />
                 </Field>
@@ -135,32 +147,32 @@ export function SignInPage() {
                 </Field>
               </div>
               <Field id="username" label="Username" error={fieldError("username")}>
-                <input id="username" name="username" autoComplete="username" required aria-describedby={describedBy("username")} aria-invalid={Boolean(fieldError("username")) || undefined} />
+                <input id="username" name="username" autoComplete="username" required {...aria("username")} />
               </Field>
               <Field id="email" label="Email" error={fieldError("email")}>
-                <input id="email" name="email" type="email" autoComplete="email" required aria-describedby={describedBy("email")} aria-invalid={Boolean(fieldError("email")) || undefined} />
+                <input id="email" name="email" type="email" autoComplete="email" required {...aria("email")} />
               </Field>
-              <fieldset className="field field--choices">
+              <fieldset className="choices">
                 <legend>I am a</legend>
-                <label className="choice">
+                <label>
                   <input type="radio" name="role" value="prospective_student" defaultChecked />
                   Prospective student
                 </label>
-                <label className="choice">
+                <label>
                   <input type="radio" name="role" value="student" />
                   Current student
                 </label>
               </fieldset>
               <Field id="password" label="Password" error={fieldError("password")} hint="At least 8 characters, not only numbers, and not a common password.">
-                <input id="password" name="password" type="password" autoComplete="new-password" required aria-describedby={describedBy("password", true)} aria-invalid={Boolean(fieldError("password")) || undefined} />
+                <input id="password" name="password" type="password" autoComplete="new-password" required {...aria("password", true)} />
               </Field>
               <Field id="password_confirm" label="Confirm password" error={fieldError("password_confirm")}>
-                <input id="password_confirm" name="password_confirm" type="password" autoComplete="new-password" required aria-describedby={describedBy("password_confirm")} aria-invalid={Boolean(fieldError("password_confirm")) || undefined} />
+                <input id="password_confirm" name="password_confirm" type="password" autoComplete="new-password" required {...aria("password_confirm")} />
               </Field>
             </>
           )}
 
-          <button type="submit" className="button auth__submit" disabled={busy}>
+          <button type="submit" className="btn btn--primary btn--block" disabled={busy}>
             {busy ? "Please wait…" : mode === "signin" ? "Sign in" : "Create account"}
           </button>
         </form>

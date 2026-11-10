@@ -20,6 +20,7 @@ class MessageSerializer(serializers.ModelSerializer):
     timestamp = serializers.DateTimeField(source="created_at", read_only=True)
     sources = serializers.SerializerMethodField()
     suggestions = serializers.SerializerMethodField()
+    related_questions = serializers.SerializerMethodField()
     disclaimer = serializers.SerializerMethodField()
     is_verified = serializers.SerializerMethodField()
     used_context = serializers.SerializerMethodField()
@@ -29,7 +30,7 @@ class MessageSerializer(serializers.ModelSerializer):
         fields = [
             "id", "conversation", "sender_type", "content", "intent", "intent_confidence", "similarity_score",
             "response_type", "answered", "information_type", "is_verified", "disclaimer", "retrieved_faq",
-            "sources", "suggestions", "used_context", "timestamp",
+            "sources", "suggestions", "related_questions", "used_context", "timestamp",
         ]
         read_only_fields = fields
 
@@ -38,6 +39,9 @@ class MessageSerializer(serializers.ModelSerializer):
 
     def get_suggestions(self, obj) -> list:
         return obj.metadata.get("suggestions", [])
+
+    def get_related_questions(self, obj) -> list:
+        return obj.metadata.get("related", [])
 
     def get_disclaimer(self, obj) -> str | None:
         return obj.metadata.get("disclaimer")
@@ -71,6 +75,7 @@ class BotResponseSerializer(serializers.Serializer):
     disclaimer = serializers.CharField(allow_null=True)
     sources = serializers.ListField(child=serializers.DictField())
     suggestions = serializers.ListField(child=serializers.DictField())
+    related_questions = serializers.ListField(child=serializers.DictField())
     matched_question = serializers.CharField(allow_null=True)
     used_context = serializers.BooleanField()
     response_time_ms = serializers.FloatField()
@@ -111,6 +116,7 @@ def build_chat_response(conversation, result) -> dict:
             "disclaimer": meta.get("disclaimer"),
             "sources": meta.get("sources", []),
             "suggestions": meta.get("suggestions", []),
+            "related_questions": meta.get("related", []),
             "matched_question": meta.get("matched_question"),
             "used_context": meta.get("used_context", False),
             "response_time_ms": result.response_time_ms,

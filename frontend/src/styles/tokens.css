@@ -1,54 +1,62 @@
 /*
- * Campus Desk design tokens.
- * Brand hue: a deep "lake" blue-green (h ≈ 210). Neutrals are tinted toward it.
- * Ochre (h ≈ 75) is reserved for demonstration-information labels.
+ * Campus Desk design tokens, "Modern campus" direction.
+ * Forest green carries the brand; warm gold is the single accent.
+ * Neutrals are tinted toward the green so surfaces and brand feel related.
  */
 
 :root {
   color-scheme: light;
 
   /* Surfaces */
-  --paper: oklch(0.982 0.005 210);
-  --surface: oklch(0.995 0.003 210);
-  --sunken: oklch(0.955 0.009 210);
-  --line: oklch(0.885 0.012 210);
-  --line-strong: oklch(0.78 0.016 210);
+  --bg: oklch(0.972 0.01 140);
+  --surface: oklch(0.995 0.004 140);
+  --surface-2: oklch(0.948 0.016 145);
+  --line: oklch(0.89 0.018 150);
+  --line-strong: oklch(0.78 0.024 152);
+  --dot: oklch(0.42 0.06 160 / 0.09);
 
   /* Ink */
-  --ink: oklch(0.25 0.028 222);
-  --ink-2: oklch(0.43 0.024 220);
-  --ink-3: oklch(0.53 0.02 218);
+  --ink: oklch(0.22 0.035 165);
+  --ink-2: oklch(0.41 0.03 165);
+  --ink-3: oklch(0.5 0.025 165);
 
-  /* Brand */
-  --brand: oklch(0.42 0.075 212);
-  --brand-hover: oklch(0.37 0.075 212);
-  --brand-soft: oklch(0.935 0.026 210);
-  --on-brand: oklch(0.985 0.006 210);
+  /* Brand green */
+  --brand: oklch(0.43 0.1 160);
+  --brand-strong: oklch(0.36 0.09 160);
+  --brand-soft: oklch(0.925 0.045 155);
+  --on-brand: oklch(0.985 0.012 140);
 
-  /* Demonstration information (ochre stamp) */
-  --notice-bg: oklch(0.955 0.04 85);
-  --notice-line: oklch(0.72 0.1 75);
-  --notice-ink: oklch(0.42 0.08 65);
+  /* Forest: the always-dark side panel and feature tiles */
+  --forest: oklch(0.265 0.052 165);
+  --forest-2: oklch(0.32 0.06 164);
+  --forest-3: oklch(0.38 0.066 163);
+  --on-forest: oklch(0.95 0.02 140);
+  --on-forest-dim: oklch(0.8 0.035 150);
+  --feature-2: var(--brand);
+  --on-feature-2: var(--on-brand);
+
+  /* Gold accent */
+  --gold: oklch(0.83 0.145 88);
+  --gold-strong: oklch(0.77 0.15 82);
+  --gold-ink: oklch(0.45 0.1 75);
+  --gold-soft: oklch(0.955 0.055 92);
+  --on-gold: oklch(0.27 0.055 80);
 
   /* States */
-  --ok: oklch(0.48 0.09 155);
-  --ok-soft: oklch(0.94 0.035 155);
-  --danger: oklch(0.52 0.16 28);
-  --danger-soft: oklch(0.95 0.03 28);
-  --focus: oklch(0.55 0.12 212);
+  --danger: oklch(0.52 0.17 27);
+  --danger-soft: oklch(0.95 0.035 27);
+  --focus: oklch(0.6 0.15 160);
 
   /* Type */
-  --font-display: "Literata Variable", "Literata", Georgia, "Times New Roman", serif;
-  --font-body: "Atkinson Hyperlegible Next Variable", "Atkinson Hyperlegible Next", "Segoe UI", system-ui, sans-serif;
-  --text-xs: 0.8125rem;   /* 13px: metadata only */
-  --text-sm: 0.9375rem;   /* 15px */
-  --text-md: 1.0625rem;   /* 17px: reading size for answers */
-  --text-lg: 1.375rem;    /* 22px */
-  --text-xl: 1.75rem;     /* 28px */
-  --text-2xl: 2.25rem;    /* 36px */
-  --leading-tight: 1.2;
-  --leading-body: 1.6;
-  --measure: 68ch;
+  --font-display: "Bricolage Grotesque Variable", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Hanken Grotesk Variable", "Segoe UI", system-ui, sans-serif;
+  --text-xs: 0.8125rem;
+  --text-sm: 0.9375rem;
+  --text-md: 1.0625rem;
+  --text-lg: 1.3125rem;
+  --text-xl: 1.75rem;
+  --text-2xl: 2.5rem;
+  --leading: 1.6;
 
   /* Space (4pt scale) */
   --space-3xs: 4px;
@@ -59,82 +67,94 @@
   --space-lg: 32px;
   --space-xl: 48px;
   --space-2xl: 64px;
-  --space-3xl: 96px;
 
   /* Shape and depth */
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 16px;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
   --radius-pill: 999px;
-  --shadow-raised: 0 1px 2px oklch(0.25 0.03 220 / 0.06), 0 6px 20px -8px oklch(0.25 0.03 220 / 0.14);
+  --shadow-1: 0 1px 2px oklch(0.25 0.05 165 / 0.06), 0 2px 8px -2px oklch(0.25 0.05 165 / 0.08);
+  --shadow-2: 0 2px 4px oklch(0.25 0.05 165 / 0.06), 0 14px 32px -12px oklch(0.25 0.05 165 / 0.22);
+  --shadow-3: 0 4px 8px oklch(0.2 0.05 165 / 0.1), 0 28px 64px -16px oklch(0.2 0.05 165 / 0.38);
 
   /* Motion */
-  --ease-out: cubic-bezier(0.22, 1, 0.36, 1); /* ease-out-quint */
-  --dur-fast: 140ms;
-  --dur-base: 220ms;
-  --dur-slow: 360ms;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-press: 110ms;
+  --dur-fast: 160ms;
+  --dur-base: 260ms;
+  --dur-slow: 420ms;
 
   --touch: 44px;
-  --rail-width: 296px;
+  --side-width: 292px;
 }
 
-/* Dark theme: used when the device prefers it (unless the user chose light) or when chosen. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     color-scheme: dark;
-    --paper: oklch(0.2 0.014 222);
-    --surface: oklch(0.235 0.016 222);
-    --sunken: oklch(0.175 0.013 222);
-    --line: oklch(0.33 0.018 222);
-    --line-strong: oklch(0.44 0.02 222);
-    --ink: oklch(0.93 0.01 210);
-    --ink-2: oklch(0.79 0.014 212);
-    --ink-3: oklch(0.69 0.016 214);
-    --brand: oklch(0.74 0.075 205);
-    --brand-hover: oklch(0.8 0.07 205);
-    --brand-soft: oklch(0.3 0.035 212);
-    --on-brand: oklch(0.19 0.02 222);
-    --notice-bg: oklch(0.3 0.04 75);
-    --notice-line: oklch(0.6 0.09 75);
-    --notice-ink: oklch(0.88 0.07 85);
-    --ok: oklch(0.76 0.1 155);
-    --ok-soft: oklch(0.3 0.04 155);
-    --danger: oklch(0.74 0.13 28);
-    --danger-soft: oklch(0.31 0.05 28);
-    --focus: oklch(0.78 0.09 205);
-    --shadow-raised: 0 1px 2px oklch(0 0 0 / 0.3), 0 10px 28px -10px oklch(0 0 0 / 0.5);
-    --leading-body: 1.68;
+    --bg: oklch(0.185 0.02 165);
+    --surface: oklch(0.228 0.024 165);
+    --surface-2: oklch(0.268 0.028 165);
+    --line: oklch(0.33 0.03 165);
+    --line-strong: oklch(0.45 0.035 163);
+    --dot: oklch(0.8 0.06 160 / 0.07);
+    --ink: oklch(0.945 0.012 140);
+    --ink-2: oklch(0.82 0.022 150);
+    --ink-3: oklch(0.72 0.025 152);
+    --brand: oklch(0.76 0.13 158);
+    --brand-strong: oklch(0.83 0.12 158);
+    --brand-soft: oklch(0.31 0.055 160);
+    --on-brand: oklch(0.18 0.03 165);
+    --forest: oklch(0.15 0.022 165);
+    --forest-2: oklch(0.215 0.032 165);
+    --forest-3: oklch(0.28 0.042 164);
+    --feature-2: oklch(0.36 0.075 160);
+    --on-feature-2: oklch(0.95 0.02 140);
+    --gold-ink: oklch(0.85 0.13 88);
+    --gold-soft: oklch(0.32 0.055 85);
+    --danger: oklch(0.76 0.13 27);
+    --danger-soft: oklch(0.31 0.06 27);
+    --focus: oklch(0.8 0.13 158);
+    --shadow-1: 0 1px 2px oklch(0 0 0 / 0.3);
+    --shadow-2: 0 2px 4px oklch(0 0 0 / 0.3), 0 14px 32px -12px oklch(0 0 0 / 0.6);
+    --shadow-3: 0 4px 8px oklch(0 0 0 / 0.4), 0 28px 64px -16px oklch(0 0 0 / 0.75);
+    --leading: 1.66;
   }
 }
 
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --paper: oklch(0.2 0.014 222);
-  --surface: oklch(0.235 0.016 222);
-  --sunken: oklch(0.175 0.013 222);
-  --line: oklch(0.33 0.018 222);
-  --line-strong: oklch(0.44 0.02 222);
-  --ink: oklch(0.93 0.01 210);
-  --ink-2: oklch(0.79 0.014 212);
-  --ink-3: oklch(0.69 0.016 214);
-  --brand: oklch(0.74 0.075 205);
-  --brand-hover: oklch(0.8 0.07 205);
-  --brand-soft: oklch(0.3 0.035 212);
-  --on-brand: oklch(0.19 0.02 222);
-  --notice-bg: oklch(0.3 0.04 75);
-  --notice-line: oklch(0.6 0.09 75);
-  --notice-ink: oklch(0.88 0.07 85);
-  --ok: oklch(0.76 0.1 155);
-  --ok-soft: oklch(0.3 0.04 155);
-  --danger: oklch(0.74 0.13 28);
-  --danger-soft: oklch(0.31 0.05 28);
-  --focus: oklch(0.78 0.09 205);
-  --shadow-raised: 0 1px 2px oklch(0 0 0 / 0.3), 0 10px 28px -10px oklch(0 0 0 / 0.5);
-  --leading-body: 1.68;
+  --bg: oklch(0.185 0.02 165);
+  --surface: oklch(0.228 0.024 165);
+  --surface-2: oklch(0.268 0.028 165);
+  --line: oklch(0.33 0.03 165);
+  --line-strong: oklch(0.45 0.035 163);
+  --dot: oklch(0.8 0.06 160 / 0.07);
+  --ink: oklch(0.945 0.012 140);
+  --ink-2: oklch(0.82 0.022 150);
+  --ink-3: oklch(0.72 0.025 152);
+  --brand: oklch(0.76 0.13 158);
+  --brand-strong: oklch(0.83 0.12 158);
+  --brand-soft: oklch(0.31 0.055 160);
+  --on-brand: oklch(0.18 0.03 165);
+  --forest: oklch(0.15 0.022 165);
+  --forest-2: oklch(0.215 0.032 165);
+  --forest-3: oklch(0.28 0.042 164);
+  --feature-2: oklch(0.36 0.075 160);
+  --on-feature-2: oklch(0.95 0.02 140);
+  --gold-ink: oklch(0.85 0.13 88);
+  --gold-soft: oklch(0.32 0.055 85);
+  --danger: oklch(0.76 0.13 27);
+  --danger-soft: oklch(0.31 0.06 27);
+  --focus: oklch(0.8 0.13 158);
+  --shadow-1: 0 1px 2px oklch(0 0 0 / 0.3);
+  --shadow-2: 0 2px 4px oklch(0 0 0 / 0.3), 0 14px 32px -12px oklch(0 0 0 / 0.6);
+  --shadow-3: 0 4px 8px oklch(0 0 0 / 0.4), 0 28px 64px -16px oklch(0 0 0 / 0.75);
+  --leading: 1.66;
 }
 
 @media (prefers-reduced-motion: reduce) {
   :root {
+    --dur-press: 0ms;
     --dur-fast: 0ms;
     --dur-base: 0ms;
     --dur-slow: 0ms;

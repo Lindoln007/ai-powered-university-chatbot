@@ -151,6 +151,7 @@ class ChatService:
         metadata = {
             "sources": response.sources,
             "suggestions": response.suggestions,
+            "related": knowledge.related_faqs(faq) if faq else [],
             "disclaimer": response.disclaimer,
             "is_verified": response.is_verified,
             "verification_status": response.verification_status,

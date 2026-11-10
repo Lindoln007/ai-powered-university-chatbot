@@ -182,6 +182,7 @@ export interface Message {
   retrieved_faq: number | null;
   sources: Source[];
   suggestions: Suggestion[];
+  related_questions: Suggestion[];
   used_context: boolean;
   timestamp: string;
 }
@@ -204,6 +205,7 @@ export interface ChatResponse {
     disclaimer: string | null;
     sources: Source[];
     suggestions: Suggestion[];
+    related_questions: Suggestion[];
     matched_question: string | null;
     used_context: boolean;
     response_time_ms: number;
@@ -227,6 +229,16 @@ export interface FAQ {
   answer: string;
   category: number;
   category_name: string;
+  information_type: string;
+}
+
+export interface SearchResult {
+  type: "faq" | "article";
+  id: number;
+  title: string;
+  content: string;
+  category: string;
+  score: number;
   information_type: string;
 }
 
@@ -342,6 +354,8 @@ export const api = {
 
   categories: () => request<Paginated<Category>>("GET", "/knowledge/categories/", undefined, { page_size: 50 }),
   faqs: () => request<Paginated<FAQ>>("GET", "/knowledge/faqs/", undefined, { page_size: 100 }),
+  search: (q: string) =>
+    request<{ results: SearchResult[] }>("GET", "/knowledge/search/", undefined, { q, type: "faq", limit: 6 }),
 
   overview: (range: DateRange) => request<Overview>("GET", "/analytics/overview/", undefined, { ...range }),
   performance: (range: DateRange) =>

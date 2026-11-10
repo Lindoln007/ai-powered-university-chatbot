@@ -234,3 +234,16 @@ def to_retrieved_knowledge(faq: FAQ) -> RetrievedKnowledge:
 
 def load_faqs(ids: list[int]) -> dict[int, FAQ]:
     return {faq.pk: faq for faq in FAQ.objects.filter(pk__in=ids).select_related("category")}
+
+
+def related_faqs(faq: FAQ, limit: int = 3, min_score: float = 0.35, demo_mode: bool | None = None) -> list[dict]:
+    """Other retrievable FAQs whose questions are closest in meaning to this one (for follow-up suggestions)."""
+    if faq.question_embedding is None:
+        return []
+    hits = get_faq_index(demo_mode).search(embeddings.from_storage(faq.question_embedding), limit + 1)
+    hits = [hit for hit in hits if hit.key != faq.pk and hit.score >= min_score][:limit]
+    faqs = load_faqs([hit.key for hit in hits])
+    return [
+        {"faq_id": hit.key, "question": faqs[hit.key].question, "category": faqs[hit.key].category.name}
+        for hit in hits if hit.key in faqs
+    ]

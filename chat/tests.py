@@ -84,6 +84,18 @@ class SemanticRetrievalTests(KnowledgeBaseTestBase):
         self.assertIn("hypothetical demonstration information", bot["disclaimer"])
         self.assertIn("[Demonstration information]", bot["content"])
 
+    def test_answers_include_related_questions(self):
+        response = self.ask(self.conversation_id, "How do I apply for a room in the hostel?", self.headers)
+        related = response.data["bot_response"]["related_questions"]
+        self.assertTrue(1 <= len(related) <= 3)
+        answered_id = response.data["bot_response"]["sources"][0]["id"]
+        self.assertNotIn(answered_id, [item["faq_id"] for item in related])
+        self.assertIn("Accommodation", [item["category"] for item in related])
+        history = self.client.get(f"/api/chat/conversations/{self.conversation_id}/messages/", headers=self.headers)
+        self.assertEqual(history.data["results"][1]["related_questions"], related)
+        fallback = self.ask(self.conversation_id, "How do I bake a chocolate cake?", self.headers)
+        self.assertEqual(fallback.data["bot_response"]["related_questions"], [])
+
     def test_small_talk(self):
         bot = self.ask(self.conversation_id, "Hello!", self.headers).data["bot_response"]
         self.assertEqual(bot["response_type"], "small_talk")

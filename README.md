@@ -845,30 +845,38 @@ Vite. It talks to the backend only through the REST API above.
 
 | Route | Who | What it does |
 |---|---|---|
-| `/` | everyone | Welcome page laid out like a handbook's contents page: every topic, with real example questions to tap |
-| `/c/:id` | owner | A conversation. Answers show their topic, the answer, a source footnote (FAQ code and question) and a **Demonstration information** stamp that expands to explain itself. Includes clarification options, fallback with "see all topics", and Helpful / Not helpful feedback with an optional comment |
+| `/` | everyone | Welcome screen: a greeting, a large question box, and a tiled index of topics with real example questions to tap |
+| `/c/:id` | owner | A conversation. Answers type themselves out and show their topic, a **Demo information** badge, a match-strength indicator, an expandable source panel, copy and Helpful / Not helpful buttons, and up to three **related questions** as follow-up chips. Clarifications offer options; fallbacks link to the topics page |
+| `/topics` | everyone | Every published answer grouped by topic, with a word filter and topic pills. Each answer can be continued in the chat |
 | `/signin` | everyone | Sign in (username or e-mail) or create an account (prospective or current student). Guest conversations move into the account automatically |
-| `/staff` | administrators | Analytics: at-a-glance figures, questions per day (line chart with a table fallback), a "Needs attention" queue for unanswered questions (resolve or mark out of scope), most-asked questions and answers by topic. Links to Django Admin for editing FAQs |
+| `/staff` | administrators | Dashboard: answer-rate ring, conversations, response time and feedback tiles, questions per day (line chart with a table fallback), a "Needs attention" queue for unanswered questions, most-asked questions and answers by topic |
 
-The conversation history sits in a side rail (a drawer on phones), with rename and delete
-actions. Guests are fully supported via the `X-Guest-Token` session.
+Every page except sign-in shares a side panel with **New chat**, **quick search** (`Ctrl+K`,
+or `⌘K` on a Mac: semantic search over the knowledge base, opening the chosen answer in the
+chat), navigation, recent conversations (rename and delete), a prototype notice, the account and
+the theme toggle. On phones the panel becomes a drawer. Guests are fully supported via the
+`X-Guest-Token` session.
+
+The follow-up chips use the `related_questions` field that the message endpoints return: the
+FAQs whose questions are closest in meaning to the one that was answered.
 
 ### 17.2 Design
 
-* **Direction:** calm, careful and plainspoken, like a well-made student handbook.
-* **Type:** Literata (headings and answers) with Atkinson Hyperlegible Next (interface text),
-  designed by the Braille Institute for legibility. Both are self-hosted, so there are no
-  third-party font requests.
-* **Colour:** OKLCH design tokens in `frontend/src/styles/tokens.css`, using a deep lake
-  blue-green brand hue with tinted neutrals. Ochre is reserved for demonstration-information
-  labels. There is a light theme by default and a dark theme that follows the device or the
-  toggle.
-* **Accessibility (measured):** every text colour pair meets WCAG AA (lowest 4.61:1, light
-  metadata text). There is full keyboard use, visible focus and a skip link. New answers are
-  announced to screen readers. 44 px touch targets on touch screens, reduced-motion support,
-  IME-safe Enter-to-send, no horizontal scrolling at 375 px, in landscape or at 200% text size.
-* **Weight:** about 95 KB of JavaScript and 9 KB of CSS gzipped, plus about 86 KB of fonts
-  (Latin subset) on the first visit.
+* **Direction:** "Modern campus". A forest-green side panel and feature tiles, one warm gold
+  accent, soft layered cards on a dotted paper background, and a small sun-over-hills
+  illustration.
+* **Type:** Bricolage Grotesque (headings) with Hanken Grotesk (text), both self-hosted, so
+  there are no third-party font requests.
+* **Colour:** OKLCH design tokens in `frontend/src/styles/tokens.css`, with a light theme by
+  default and a dark theme that follows the device or the toggle. Gold dashed badges are
+  reserved for demonstration-information labels.
+* **Motion:** short entrance animations, press feedback on buttons, a "searching the knowledge
+  base" indicator and typed-out answers. Answers are retrieved whole, so the typing is a
+  presentation effect. All motion is removed when the device asks for reduced motion.
+* **Accessibility (measured):** 23 text and background colour pairs checked in both themes, all
+  at least 4.6:1 (WCAG AA). Full keyboard use, visible focus, a skip link, screen-reader
+  announcements for new answers, 44 px touch targets on touch screens, IME-safe Enter-to-send,
+  and no horizontal scrolling at 375 px.
 
 ### 17.3 Running it
 
@@ -894,4 +902,3 @@ else to `index.html`). If the interface is hosted on a different origin, add tha
   The interface says so in the message box instead of leaving users guessing.
 * Feedback can be given once per answer. After a page reload the buttons reappear, but a second
   rating is politely ignored.
-
