@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Testing &amp; Results · AI-Powered University Chatbot</title>
+    <meta name="description" content="How the AI-Powered University Chatbot was tested: automated tests, retrieval evaluation, manual test cases, interface checks, performance, limitations and recommendations." />
+    <meta name="theme-color" content="#17402f" />
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="preload" href="assets/fonts/bricolage-grotesque-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="assets/fonts/hanken-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="assets/css/site.css" />
+    <script src="assets/js/site.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a class="brand" href="index.html" aria-label="AI-Powered University Chatbot, project overview">
+          <svg width="34" height="34" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="12" fill="#2b5541" /><path d="M11 12.5h13.5a6.5 6.5 0 0 1 0 13H18l-5.2 4.3c-.7.6-1.8.1-1.8-.8z" fill="none" stroke="#eef5ee" stroke-width="2.6" stroke-linejoin="round" /><circle cx="28.5" cy="12.5" r="3.6" fill="#f0c245" /></svg>
+          <span><span class="brand__long">AI-Powered </span>University Chatbot</span>
+        </a>
+        <nav class="site-nav" aria-label="Portfolio pages">
+          <ol>
+            <li><a href="index.html"><span class="num">01</span><span class="long">Project Overview</span><span class="short">Overview</span></a></li>
+            <li><a href="methodology.html"><span class="num">02</span><span class="long">Methodology &amp; Implementation</span><span class="short">Method</span></a></li>
+            <li><a href="testing.html" aria-current="page"><span class="num">03</span><span class="long">Testing &amp; Results</span><span class="short">Testing</span></a></li>
+          </ol>
+        </nav>
+        <a class="btn btn--gold" href="https://github.com/Lindoln007/ai-powered-university-chatbot" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.73-1.54-2.56-.29-5.25-1.28-5.25-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.78 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.7 5.39-5.27 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z" /></svg>
+          <span>View on GitHub</span>
+        </a>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero hero--page" aria-labelledby="page-title">
+        <svg class="hero__art" viewBox="0 0 520 300" aria-hidden="true"><circle cx="372" cy="118" r="74" class="sun" /><circle cx="372" cy="118" r="108" class="ring" fill="none" stroke-width="1.5" /><path d="M0 232c70-58 138-64 214-22s150 30 306-62v152H0z" class="hill-far" /></svg>
+        <div class="hero__inner">
+          <p class="eyebrow">Page 3 of 3 · Testing &amp; Results</p>
+          <h1 id="page-title">How it was tested, and what happened</h1>
+          <p class="hero__lede">
+            The chatbot was tested in four ways: automated tests, an accuracy evaluation with questions it had never seen,
+            manual test cases against the running system, and checks of the interface and speed. Every result below links
+            to its raw evidence.
+          </p>
+        </div>
+      </section>
+
+      <section class="section reveal" aria-labelledby="summary-title">
+        <h2 id="summary-title" class="sr-only">Results at a glance</h2>
+        <dl class="facts">
+          <div><dt>automated tests passed (11 Nov 2026)</dt><dd>112 / 112</dd></div>
+          <div><dt>unseen questions matched to the right answer first time</dt><dd>92.7%</dd></div>
+          <div><dt>off-topic questions correctly refused</dt><dd>20 / 20</dd></div>
+          <div><dt>manual test cases matched the expected result</dt><dd>13 / 14</dd></div>
+        </dl>
+      </section>
+
+      <section class="section" aria-labelledby="auto-title">
+        <div class="split">
+          <div class="prose reveal">
+            <p class="section__num">1 · Automated tests <span class="badge badge--pass">Completed</span></p>
+            <h2 id="auto-title">112 automated tests, all passing</h2>
+            <p>
+              The tests run against a temporary PostgreSQL database and use the <strong>real language model</strong>, not a
+              simulation, so the semantic search results are genuine. They were last run on <strong>11 November 2026</strong>:
+              <code>Ran 112 tests … OK</code>.
+            </p>
+            <p>
+              The most important tests check that differently worded questions get the same answer, and that unrelated
+              questions do not get a confident wrong answer.
+            </p>
+            <div class="evidence-row">
+              <a class="evidence" href="evidence/test-run.txt" target="_blank" rel="noopener">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M14 3H6v18h12V7zM14 3v4h4M9 13h6M9 17h6" /></svg>
+                Evidence: full test log (test-run.txt)
+              </a>
+              <a class="evidence" href="https://github.com/Lindoln007/ai-powered-university-chatbot/blob/main/chat/tests.py" target="_blank" rel="noopener">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M14 3h7v7M10 14 21 3M21 14v7H3V3h7" /></svg>
+                Test source code
+              </a>
+            </div>
+          </div>
+          <div class="table-wrap reveal">
+            <table>
+              <thead><tr><th scope="col">Area</th><th scope="col" class="num">Tests</th><th scope="col">Examples of what is checked</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">NLP engine</th><td class="num">37</td><td>Embeddings, similarity, intent detection, decision rules, offline model loading</td></tr>
+                <tr><th scope="row">Knowledge base</th><td class="num">25</td><td>Dataset import, no duplicates, embeddings refresh on edit, verified-only mode</td></tr>
+                <tr><th scope="row">Chat</th><td class="num">24</td><td>Paraphrases, fallbacks, follow-ups, ownership, guest sessions, rate limits</td></tr>
+                <tr><th scope="row">Accounts</th><td class="num">15</td><td>Registration, password rules, sign-in, roles and permissions</td></tr>
+                <tr><th scope="row">Analytics</th><td class="num">7</td><td>Every statistic checked against database counts; date filters</td></tr>
+                <tr><th scope="row">Feedback</th><td class="num">4</td><td>Ratings, ownership checks, duplicates, staff-only listing</td></tr>
+                <tr class="is-highlight"><th scope="row">Total</th><td class="num">112</td><td><span class="badge badge--pass">All passed</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="eval-title">
+        <div class="section__head reveal">
+          <p class="section__num">2 · Accuracy evaluation <span class="badge badge--pass">Completed</span></p>
+          <h2 id="eval-title">Does it find the right answer for questions it has never seen?</h2>
+          <p>
+            A separate set of <strong>55 new wordings</strong> of questions in the knowledge base, plus <strong>20 off-topic
+            questions</strong> (weather, football, recipes and so on), was written and kept out of the dataset. The command
+            <code>python manage.py evaluate_retrieval</code> measures the results at different similarity thresholds.
+          </p>
+        </div>
+
+        <div class="split">
+          <div class="reveal">
+            <dl class="facts" style="border-block-start: 0">
+              <div><dt>correct FAQ ranked first (no threshold)</dt><dd>51 / 55</dd></div>
+              <div><dt>correct FAQ in the top three</dt><dd>54 / 55</dd></div>
+            </dl>
+            <div class="prose" style="margin-block-start: var(--space-md)">
+              <p>
+                <strong>Choosing the threshold.</strong> A threshold that is too low answers off-topic questions; one that is
+                too high refuses good ones. At <strong>0.50</strong> the chatbot answered 50 of the 55 new wordings correctly
+                and refused all 20 off-topic questions, the best overall result (93.3%). At 0.45, one off-topic question
+                ("What time is it in New York?") was wrongly answered with office hours.
+              </p>
+            </div>
+          </div>
+          <div class="table-wrap reveal">
+            <table>
+              <caption>Results at each threshold (75 questions)</caption>
+              <thead><tr><th scope="col" class="num">Threshold</th><th scope="col">Correct of 55</th><th scope="col">Off-topic answered</th><th scope="col" class="num">Overall</th></tr></thead>
+              <tbody>
+                <tr><td class="num">0.40</td><td><span class="bar" aria-hidden="true"><i style="inline-size:90.9%"></i></span>50</td><td><span class="bar bar--gold" aria-hidden="true"><i style="inline-size:5%"></i></span>1</td><td class="num">92.0%</td></tr>
+                <tr><td class="num">0.45</td><td><span class="bar" aria-hidden="true"><i style="inline-size:90.9%"></i></span>50</td><td><span class="bar bar--gold" aria-hidden="true"><i style="inline-size:5%"></i></span>1</td><td class="num">92.0%</td></tr>
+                <tr class="is-highlight"><td class="num"><strong>0.50</strong></td><td><span class="bar" aria-hidden="true"><i style="inline-size:90.9%"></i></span>50</td><td><span class="bar bar--gold" aria-hidden="true"><i style="inline-size:0%"></i></span>0</td><td class="num"><strong>93.3%</strong></td></tr>
+                <tr><td class="num">0.55</td><td><span class="bar" aria-hidden="true"><i style="inline-size:89.1%"></i></span>49</td><td><span class="bar bar--gold" aria-hidden="true"><i style="inline-size:0%"></i></span>0</td><td class="num">92.0%</td></tr>
+                <tr><td class="num">0.60</td><td><span class="bar" aria-hidden="true"><i style="inline-size:89.1%"></i></span>49</td><td><span class="bar bar--gold" aria-hidden="true"><i style="inline-size:0%"></i></span>0</td><td class="num">92.0%</td></tr>
+                <tr><td class="num">0.65</td><td><span class="bar" aria-hidden="true"><i style="inline-size:81.8%"></i></span>45</td><td><span class="bar bar--gold" aria-hidden="true"><i style="inline-size:0%"></i></span>0</td><td class="num">86.7%</td></tr>
+                <tr><td class="num">0.70</td><td><span class="bar" aria-hidden="true"><i style="inline-size:70.9%"></i></span>39</td><td><span class="bar bar--gold" aria-hidden="true"><i style="inline-size:0%"></i></span>0</td><td class="num">78.7%</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="table-wrap reveal" style="margin-block-start: var(--space-lg)">
+          <table>
+            <caption>The 5 questions not answered correctly at the 0.50 threshold</caption>
+            <thead><tr><th scope="col">Question</th><th scope="col">Expected</th><th scope="col">What happened</th></tr></thead>
+            <tbody>
+              <tr><td>"Am I allowed to pay my fees bit by bit?"</td><td>FEE-003 (instalments)</td><td>Answered with FEE-002 (payment methods), score 0.60</td></tr>
+              <tr><td>"What mark do I need to pass a course?"</td><td>EXAM-004 (grading)</td><td>Answered with REG-004 (add or drop a course), score 0.59</td></tr>
+              <tr><td>"What student organisations are there?"</td><td>AFF-001 (clubs)</td><td>Answered with AFF-002 (student union), score 0.70</td></tr>
+              <tr><td>"I want my exam paper to be marked again"</td><td>EXAM-005 (appeals)</td><td>Asked for clarification instead of answering</td></tr>
+              <tr><td>"Can someone help me write my CV?"</td><td>SUP-005 (careers)</td><td>Fallback: best score only 0.36</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="evidence-row reveal" style="margin-block-start: var(--space-sm)">
+          <a class="evidence" href="evidence/retrieval-evaluation.txt" target="_blank" rel="noopener">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M14 3H6v18h12V7zM14 3v4h4M9 13h6M9 17h6" /></svg>
+            Evidence: evaluation output (retrieval-evaluation.txt)
+          </a>
+          <a class="evidence" href="https://github.com/Lindoln007/ai-powered-university-chatbot/blob/main/data/evaluation_questions.json" target="_blank" rel="noopener">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M14 3h7v7M10 14 21 3M21 14v7H3V3h7" /></svg>
+            The 75 evaluation questions
+          </a>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="manual-title">
+        <div class="section__head reveal">
+          <p class="section__num">3 · Manual test cases <span class="badge badge--pass">Completed</span></p>
+          <h2 id="manual-title">Expected and actual responses from the running system</h2>
+          <p>
+            These 14 questions were sent to the live chatbot on <strong>11 November 2026</strong>. The expected result was
+            written down first; the actual result is exactly what the system returned. Codes such as PROG-001 identify
+            the FAQ that was used.
+          </p>
+        </div>
+        <div class="table-wrap reveal">
+          <table>
+            <thead>
+              <tr><th scope="col">ID</th><th scope="col">Type</th><th scope="col">Question asked</th><th scope="col">Expected</th><th scope="col">Actual</th><th scope="col" class="num">Score</th><th scope="col">Result</th></tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">TC-01</th><td>Exact wording</td><td>What programmes does the university offer?</td><td>Answer PROG-001</td><td>Answer PROG-001</td><td class="num">1.00</td><td><span class="badge badge--pass">Pass</span></td></tr>
+              <tr><th scope="row">TC-02</th><td>Different wording</td><td>Which courses can I study?</td><td>Answer PROG-001</td><td>Answer PROG-001</td><td class="num">0.85</td><td><span class="badge badge--pass">Pass</span></td></tr>
+              <tr><th scope="row">TC-03</th><td>Different wording</td><td>What academic programmes are available?</td><td>Answer PROG-001</td><td>Answer PROG-001</td><td class="num">1.00</td><td><span class="badge badge--pass">Pass</span></td></tr>
+              <tr><th scope="row">TC-04</th><td>Different wording</td><td>What grades do I need to qualify?</td><td>Answer ADM-002</td><td>Answer ADM-002</td><td class="num">0.86</td><td><span class="badge badge--pass">Pass</span></td></tr>
+              <tr><th scope="row">TC-05</th><td>Unseen wording</td><td>How much will I pay per semester?</td><td>Answer FEE-001</td><td>Answer FEE-001</td><td class="num">0.72</td><td><span class="badge badge--pass">Pass</span></td></tr>
+              <tr><th scope="row">TC-06</th><td>Unseen wording</td><td>When will lectures begin this semester?</td><td>Answer CAL-002</td><td>Answer CAL-002</td><td class="num">0.90</td><td><span class="badge badge--pass">Pass</span></td></tr>
+              <tr><th scope="row">TC-07</th><td>Unseen wording</td><td>I need someone to talk to about my problems</td><td>Answer SUP-002</td><td>Answer SUP-002</td><td class="num">0.83</td><td><span class="badge badge--pass">Pass</span></td></tr>
+              <tr><th scope="row">TC-08</th><td>Off-topic</td><td>Who won the football world cup in 2018?</td><td>Fallback</td><td>Fallback</td><td class="num">0.27</td><td><span class="badge badge--pass">Pass</span></td></tr>
+              <tr><th scope="row">TC-09</th><td>Off-topic</td><td>What is the capital city of Japan?</td><td>Fallback</td><td>Fallback</td><td class="num">0.28</td><td><span class="badge badge--pass">Pass</span></td></tr>
+              <tr><th scope="row">TC-10</th><td>Conversation</td><td>How do I apply for a room in the hostel?</td><td>Answer ACC-002</td><td>Answer ACC-002</td><td class="num">1.00</td><td><span class="badge badge--pass">Pass</span></td></tr>
+              <tr><th scope="row">TC-11</th><td>Follow-up to TC-10</td><td>How much does it cost?</td><td>Answer ACC-003 (hostel cost)</td><td>Answer ACC-003, using conversation context</td><td class="num">0.62</td><td><span class="badge badge--pass">Pass</span></td></tr>
+              <tr><th scope="row">TC-12</th><td>Greeting</td><td>Hello</td><td>Friendly reply</td><td>Friendly reply</td><td class="num">n/a</td><td><span class="badge badge--pass">Pass</span></td></tr>
+              <tr><th scope="row">TC-13</th><td>Known weakness</td><td>Am I allowed to pay my fees bit by bit?</td><td>Answer FEE-003 (instalments)</td><td>Answer FEE-002 (payment methods)</td><td class="num">0.60</td><td><span class="badge badge--fail">Fail</span></td></tr>
+              <tr><th scope="row">TC-14</th><td>Invalid input</td><td>(only spaces)</td><td>Rejected with a message</td><td>Rejected: "This field may not be blank."</td><td class="num">n/a</td><td><span class="badge badge--pass">Pass</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="split reveal" style="margin-block-start: var(--space-lg)">
+          <div class="prose">
+            <p>
+              <strong>TC-13 failed</strong> because two FAQs about fees are very close in meaning, and the wording "bit by
+              bit" does not appear in either. It was included on purpose, because the accuracy evaluation had already
+              identified it. Adding "pay bit by bit" as an alternative wording to FEE-003 would fix it.
+            </p>
+          </div>
+          <div class="prose">
+            <p>
+              <strong>Timing note.</strong> Round trips in this run took 0.6 to 8.7 seconds because the laptop had just been
+              restarted and was running on battery. Warm measurements are in section 5.
+            </p>
+            <div class="evidence-row">
+              <a class="evidence" href="evidence/chatbot-test-cases.json" target="_blank" rel="noopener">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M14 3H6v18h12V7zM14 3v4h4M9 13h6M9 17h6" /></svg>
+                Evidence: raw results (chatbot-test-cases.json)
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="ui-title">
+        <div class="section__head reveal">
+          <p class="section__num">4 · Interface checks <span class="badge badge--pass">Completed</span></p>
+          <h2 id="ui-title">Screens, phones and accessibility</h2>
+          <p>The web interface was tested in a browser during development (10 and 11 November 2026), using desktop and emulated phone screen sizes.</p>
+        </div>
+        <div class="split">
+          <ul class="checks reveal">
+            <li>All pages tested end to end: chat, quick search, browse topics, sign-in and the staff dashboard.</li>
+            <li>No sideways scrolling at a 375 px phone width.</li>
+            <li>23 text and background colour pairs measured in both light and dark themes: every pair reached at least 4.6 : 1 contrast (WCAG AA requires 4.5 : 1).</li>
+            <li>Keyboard use, visible focus, a skip link and screen-reader announcements for new answers.</li>
+            <li>Touch targets of at least 44 px on touch screens; animations switched off when the device asks for reduced motion.</li>
+            <li>Bugs found and fixed during these checks included the page being wider than a phone screen and overlapping artwork on the sign-in page.</li>
+          </ul>
+          <div class="gallery reveal" style="grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr))">
+            <figure class="shot shot--phone">
+              <div class="shot__frame"><a href="assets/screenshots/mobile-welcome.jpg" target="_blank" rel="noopener"><img src="assets/screenshots/mobile-welcome.jpg" width="780" height="1688" loading="lazy" alt="Phone view of the welcome screen with greeting, question box and the Admissions topic tile." /></a></div>
+              <figcaption>Welcome screen at phone width.</figcaption>
+            </figure>
+            <figure class="shot">
+              <div class="shot__frame"><a href="assets/screenshots/signin.jpg" target="_blank" rel="noopener"><img src="assets/screenshots/signin.jpg" width="1440" height="900" loading="lazy" alt="Sign-in page with a green illustrated panel on the left and the sign-in form on the right." /></a></div>
+              <figcaption>Sign-in page after the overlap fix.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="perf-title">
+        <div class="section__head reveal">
+          <p class="section__num">5 · Performance <span class="badge badge--pass">Completed</span></p>
+          <h2 id="perf-title">Speed on an ordinary laptop</h2>
+          <p>
+            Measured on 8 November 2026 on the development laptop (Intel Core i5 11th Gen, 12 GB RAM, no graphics card). Early
+            testing showed the first answer after start-up could take minutes, so the model runtime was changed from PyTorch
+            to ONNX Runtime. Accuracy was re-checked afterwards and was identical.
+          </p>
+        </div>
+        <div class="table-wrap reveal">
+          <table>
+            <thead><tr><th scope="col">Measurement</th><th scope="col">Before (PyTorch)</th><th scope="col">After (ONNX Runtime)</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Server start to ready to answer</th><td>about 15 s</td><td><strong>2.7 s</strong></td></tr>
+              <tr><th scope="row">First question right after start</th><td>waited for the model to load (up to minutes)</td><td><strong>78 ms</strong></td></tr>
+              <tr><th scope="row">Typical question, full round trip (median)</th><td>57 ms</td><td><strong>15 ms</strong></td></tr>
+              <tr><th scope="row">Server memory</th><td>about 600 MB</td><td><strong>225 MB</strong></td></tr>
+              <tr><th scope="row">Accuracy on the evaluation set</th><td>92.7% first-choice</td><td><strong>92.7%, identical results</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="reveal" style="margin-block-start: var(--space-sm); color: var(--ink-2); font-size: var(--text-sm)">
+          Start-up straight after a reboot could not be measured on demand. It is expected to be much faster than before
+          because about 81% fewer files are loaded, but this is an estimate.
+          <a href="https://github.com/Lindoln007/ai-powered-university-chatbot#14-performance-on-the-development-laptop" target="_blank" rel="noopener">Full measurements in the README</a>.
+        </p>
+      </section>
+
+      <section class="section" aria-labelledby="status-title">
+        <div class="section__head reveal">
+          <p class="section__num">6 · Completed and planned testing</p>
+          <h2 id="status-title">What has been tested, and what has not yet</h2>
+        </div>
+        <div class="status-grid reveal">
+          <div class="status-col">
+            <h3><span class="badge badge--pass">Completed</span></h3>
+            <ul class="checks">
+              <li>112 automated tests (unit, integration and API)</li>
+              <li>Accuracy evaluation with 55 unseen and 20 off-topic questions</li>
+              <li>Threshold selection from that evaluation (0.50)</li>
+              <li>14 manual test cases against the running system</li>
+              <li>Interface checks at desktop and emulated phone sizes</li>
+              <li>Colour-contrast measurement in both themes</li>
+              <li>Speed and memory measurements before and after optimisation</li>
+            </ul>
+          </div>
+          <div class="status-col status-col--planned">
+            <h3><span class="badge badge--planned">Planned, not yet done</span></h3>
+            <ul class="checks checks--planned">
+              <li>Testing with real students (user acceptance testing)</li>
+              <li>Testing on real phones over a campus network</li>
+              <li>Verification of the knowledge base by university offices, then testing in official mode</li>
+              <li>Re-checking the threshold with real student questions</li>
+              <li>Load testing with many users at the same time</li>
+              <li>Measuring start-up time straight after a reboot</li>
+              <li>Accessibility review with screen-reader users</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="limits-title">
+        <div class="split">
+          <div class="prose reveal">
+            <p class="section__num">7 · Limitations</p>
+            <h2 id="limits-title">Known limitations</h2>
+            <ul class="checks checks--planned">
+              <li><span><strong>The data is hypothetical.</strong> None of the 57 answers is verified university information.</span></li>
+              <li><span><strong>Near-neighbour mistakes.</strong> 5 of the 55 unseen questions were not answered correctly, mostly because a closely related FAQ was chosen instead.</span></li>
+              <li><span><strong>English only.</strong> The model does not reliably understand Chichewa.</span></li>
+              <li><span><strong>Simple context.</strong> Follow-ups use only the previous topic; it is not a full conversation manager.</span></li>
+              <li><span><strong>One answer at a time.</strong> It cannot combine information from several FAQs into one reply.</span></li>
+              <li><span><strong>Small, self-written test set.</strong> The 75 evaluation questions were written by the developer.</span></li>
+              <li><span><strong>Development server.</strong> It has not been deployed to a production server.</span></li>
+            </ul>
+          </div>
+          <div class="prose reveal">
+            <p class="section__num">8 · Recommendations</p>
+            <h2>Next steps</h2>
+            <ol class="steps">
+              <li><span><strong>Load verified information</strong>Replace demonstration answers with information confirmed by university offices, then switch to official mode.</span></li>
+              <li><span><strong>Learn from real questions</strong>Use the logged unanswered questions to add FAQs and alternative wordings, then re-run the evaluation.</span></li>
+              <li><span><strong>Pilot with students</strong>Run user acceptance testing with a small group of prospective and current students on their own phones.</span></li>
+              <li><span><strong>Add Chichewa support</strong>Evaluate a multilingual model such as paraphrase-multilingual-MiniLM-L12-v2.</span></li>
+              <li><span><strong>Deploy properly</strong>Use a production web server over HTTPS, and shared caching if more than one server process is used.</span></li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <nav class="pager" aria-label="Previous page">
+        <a href="methodology.html"><span>Previous · Page 2</span><strong>← Methodology &amp; Implementation</strong></a>
+        <a class="pager__next" href="https://github.com/Lindoln007/ai-powered-university-chatbot" target="_blank" rel="noopener"><span>Source code</span><strong>GitHub repository →</strong></a>
+      </nav>
+    </main>
+
+    <footer class="site-footer">
+      <div class="site-footer__inner">
+        <div>
+          <h2>AI-Powered University Chatbot</h2>
+          <p>Asante Mbaya · 351 CP 81 Comprehension, Project 2 · DMI St. John the Baptist University</p>
+          <p>Unofficial academic prototype. Knowledge-base answers are hypothetical demonstration data.</p>
+        </div>
+        <ul>
+          <li><a href="https://github.com/Lindoln007/ai-powered-university-chatbot" target="_blank" rel="noopener">GitHub repository (source code)</a></li>
+          <li><a href="https://github.com/Lindoln007/ai-powered-university-chatbot#readme" target="_blank" rel="noopener">Project documentation (README)</a></li>
+          <li><a href="https://github.com/Lindoln007/ai-powered-university-chatbot/blob/main/data/university_faqs.json" target="_blank" rel="noopener">Knowledge base dataset</a></li>
+        </ul>
+      </div>
+    </footer>
+  </body>
+</html>

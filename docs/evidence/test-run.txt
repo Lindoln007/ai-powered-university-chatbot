@@ -1,0 +1,242 @@
+Creating test database for alias 'default' ('test_university_chatbot')...
+Found 112 test(s).
+Operations to perform:
+  Synchronize unmigrated apps: corsheaders, drf_spectacular, messages, nlp_engine, rest_framework, staticfiles
+  Apply all migrations: accounts, admin, analytics, auth, authtoken, chat, contenttypes, feedback, knowledge_base, sessions
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0001_initial... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying accounts.0001_initial... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying admin.0003_logentry_add_action_flag_choices... OK
+  Applying knowledge_base.0001_initial... OK
+  Applying chat.0001_initial... OK
+  Applying analytics.0001_initial... OK
+  Applying authtoken.0001_initial... OK
+  Applying authtoken.0002_auto_20160226_1747... OK
+  Applying authtoken.0003_tokenproxy... OK
+  Applying authtoken.0004_alter_tokenproxy_options... OK
+  Applying feedback.0001_initial... OK
+  Applying sessions.0001_initial...test_inactive_user_cannot_log_in (accounts.tests.LoginLogoutTests.test_inactive_user_cannot_log_in) ... [WARNING] 2026-11-11 19:45:53,371 django.request: Bad Request: /api/auth/login/
+ok
+test_login_is_rate_limited (accounts.tests.LoginLogoutTests.test_login_is_rate_limited) ... [WARNING] 2026-11-11 19:45:55,468 django.request: Bad Request: /api/auth/login/
+[WARNING] 2026-11-11 19:45:56,585 django.request: Bad Request: /api/auth/login/
+[WARNING] 2026-11-11 19:45:57,601 django.request: Bad Request: /api/auth/login/
+[WARNING] 2026-11-11 19:45:58,590 django.request: Bad Request: /api/auth/login/
+[WARNING] 2026-11-11 19:45:59,704 django.request: Bad Request: /api/auth/login/
+[WARNING] 2026-11-11 19:46:00,769 django.request: Bad Request: /api/auth/login/
+[WARNING] 2026-11-11 19:46:01,787 django.request: Bad Request: /api/auth/login/
+[WARNING] 2026-11-11 19:46:02,890 django.request: Bad Request: /api/auth/login/
+[WARNING] 2026-11-11 19:46:04,134 django.request: Bad Request: /api/auth/login/
+[WARNING] 2026-11-11 19:46:05,204 django.request: Bad Request: /api/auth/login/
+[WARNING] 2026-11-11 19:46:05,206 django.request: Too Many Requests: /api/auth/login/
+[WARNING] 2026-11-11 19:46:05,208 django.request: Too Many Requests: /api/auth/login/
+ok
+test_login_with_username_or_email (accounts.tests.LoginLogoutTests.test_login_with_username_or_email) ... ok
+test_logout_invalidates_token (accounts.tests.LoginLogoutTests.test_logout_invalidates_token) ... [WARNING] 2026-11-11 19:46:09,663 django.request: Unauthorized: /api/auth/profile/
+ok
+test_wrong_password_is_rejected (accounts.tests.LoginLogoutTests.test_wrong_password_is_rejected) ... [WARNING] 2026-11-11 19:46:11,723 django.request: Bad Request: /api/auth/login/
+ok
+test_get_and_update_profile (accounts.tests.ProfileTests.test_get_and_update_profile) ... ok
+test_password_change (accounts.tests.ProfileTests.test_password_change) ... [WARNING] 2026-11-11 19:46:17,885 django.request: Unauthorized: /api/auth/password/change/
+ok
+test_profile_requires_authentication (accounts.tests.ProfileTests.test_profile_requires_authentication) ... [WARNING] 2026-11-11 19:46:19,164 django.request: Unauthorized: /api/auth/profile/
+ok
+test_cannot_self_register_as_administrator (accounts.tests.RegistrationTests.test_cannot_self_register_as_administrator) ... [WARNING] 2026-11-11 19:46:19,268 django.request: Bad Request: /api/auth/register/
+ok
+test_register_as_student (accounts.tests.RegistrationTests.test_register_as_student) ... ok
+test_register_returns_token_and_hashes_password (accounts.tests.RegistrationTests.test_register_returns_token_and_hashes_password) ... ok
+test_validation_errors (accounts.tests.RegistrationTests.test_validation_errors) ... [WARNING] 2026-11-11 19:46:22,889 django.request: Bad Request: /api/auth/register/
+[WARNING] 2026-11-11 19:46:22,900 django.request: Bad Request: /api/auth/register/
+[WARNING] 2026-11-11 19:46:22,906 django.request: Bad Request: /api/auth/register/
+[WARNING] 2026-11-11 19:46:22,913 django.request: Bad Request: /api/auth/register/
+[WARNING] 2026-11-11 19:46:22,921 django.request: Bad Request: /api/auth/register/
+ok
+test_administrator_role_grants_staff_access (accounts.tests.RoleAndPermissionTests.test_administrator_role_grants_staff_access) ... ok
+test_superuser_is_administrator (accounts.tests.RoleAndPermissionTests.test_superuser_is_administrator) ... ok
+test_user_management_is_restricted_to_administrators (accounts.tests.RoleAndPermissionTests.test_user_management_is_restricted_to_administrators) ... [WARNING] 2026-11-11 19:46:26,742 django.request: Forbidden: /api/auth/users/
+ok
+[INFO] 2026-11-11 19:46:48,853 nlp_engine.model_loader: Loaded sentence-transformers/all-MiniLM-L6-v2 with the onnx backend on CPU in 19.52s
+test_analytics_require_administrator (analytics.tests.AnalyticsTests.test_analytics_require_administrator) ... [WARNING] 2026-11-11 19:46:57,983 django.request: Unauthorized: /api/analytics/overview/
+[WARNING] 2026-11-11 19:46:57,985 django.request: Unauthorized: /api/analytics/popular-questions/
+[WARNING] 2026-11-11 19:46:57,987 django.request: Unauthorized: /api/analytics/unanswered-questions/
+[WARNING] 2026-11-11 19:46:57,987 django.request: Unauthorized: /api/analytics/category-statistics/
+[WARNING] 2026-11-11 19:46:57,989 django.request: Unauthorized: /api/analytics/response-performance/
+[WARNING] 2026-11-11 19:46:57,989 django.request: Unauthorized: /api/analytics/usage/
+[WARNING] 2026-11-11 19:46:57,991 django.request: Unauthorized: /api/analytics/unanswered-questions/summary/
+[WARNING] 2026-11-11 19:46:57,999 django.request: Forbidden: /api/analytics/overview/
+[WARNING] 2026-11-11 19:46:58,001 django.request: Forbidden: /api/analytics/popular-questions/
+[WARNING] 2026-11-11 19:46:58,005 django.request: Forbidden: /api/analytics/unanswered-questions/
+[WARNING] 2026-11-11 19:46:58,007 django.request: Forbidden: /api/analytics/category-statistics/
+[WARNING] 2026-11-11 19:46:58,011 django.request: Forbidden: /api/analytics/response-performance/
+[WARNING] 2026-11-11 19:46:58,017 django.request: Forbidden: /api/analytics/usage/
+[WARNING] 2026-11-11 19:46:58,021 django.request: Forbidden: /api/analytics/unanswered-questions/summary/
+ok
+test_category_statistics (analytics.tests.AnalyticsTests.test_category_statistics) ... ok
+test_date_filtering (analytics.tests.AnalyticsTests.test_date_filtering) ... [WARNING] 2026-11-11 19:47:02,650 django.request: Bad Request: /api/analytics/overview/
+[WARNING] 2026-11-11 19:47:02,656 django.request: Bad Request: /api/analytics/overview/
+ok
+test_overview_matches_database (analytics.tests.AnalyticsTests.test_overview_matches_database) ... ok
+test_popular_questions (analytics.tests.AnalyticsTests.test_popular_questions) ... ok
+test_response_performance_and_usage (analytics.tests.AnalyticsTests.test_response_performance_and_usage) ... ok
+test_unanswered_question_management (analytics.tests.AnalyticsTests.test_unanswered_question_management) ... [WARNING] 2026-11-11 19:47:12,838 django.request: Bad Request: /api/analytics/unanswered-questions/34/
+ok
+test_archived_conversation_rejects_new_messages (chat.tests.ConversationAPITests.test_archived_conversation_rejects_new_messages) ... [WARNING] 2026-11-11 19:47:16,282 django.request: Bad Request: /api/chat/conversations/8/messages/
+ok
+test_authenticated_conversation_lifecycle (chat.tests.ConversationAPITests.test_authenticated_conversation_lifecycle) ... [WARNING] 2026-11-11 19:47:18,625 django.request: Method Not Allowed: /api/chat/conversations/9/
+ok
+test_chat_messages_are_rate_limited (chat.tests.ConversationAPITests.test_chat_messages_are_rate_limited) ... [WARNING] 2026-11-11 19:47:20,937 django.request: Too Many Requests: /api/chat/conversations/10/messages/
+ok
+test_guest_can_reuse_token_for_new_conversations_and_claim_them (chat.tests.ConversationAPITests.test_guest_can_reuse_token_for_new_conversations_and_claim_them) ... ok
+test_guest_sessions_are_isolated (chat.tests.ConversationAPITests.test_guest_sessions_are_isolated) ... [WARNING] 2026-11-11 19:47:25,409 django.request: Not Found: /api/chat/conversations/13/messages/
+[WARNING] 2026-11-11 19:47:25,411 django.request: Not Found: /api/chat/conversations/13/messages/
+ok
+test_message_validation (chat.tests.ConversationAPITests.test_message_validation) ... [WARNING] 2026-11-11 19:47:27,574 django.request: Bad Request: /api/chat/conversations/15/messages/
+[WARNING] 2026-11-11 19:47:27,580 django.request: Bad Request: /api/chat/conversations/15/messages/
+[WARNING] 2026-11-11 19:47:27,586 django.request: Bad Request: /api/chat/conversations/15/messages/
+[WARNING] 2026-11-11 19:47:27,586 django.request: Bad Request: /api/chat/conversations/15/messages/
+[WARNING] 2026-11-11 19:47:27,595 django.request: Bad Request: /api/chat/conversations/15/messages/
+ok
+test_model_unavailable_returns_503_without_saving (chat.tests.ConversationAPITests.test_model_unavailable_returns_503_without_saving) ... [ERROR] 2026-11-11 19:47:29,838 django.request: Service Unavailable: /api/chat/conversations/16/messages/
+ok
+test_title_is_generated_from_first_question (chat.tests.ConversationAPITests.test_title_is_generated_from_first_question) ... ok
+test_unexpected_errors_do_not_leak_internals (chat.tests.ConversationAPITests.test_unexpected_errors_do_not_leak_internals) ... [ERROR] 2026-11-11 19:47:34,531 django.request: Internal Server Error: /api/chat/conversations/18/messages/
+ok
+test_users_cannot_access_other_users_conversations (chat.tests.ConversationAPITests.test_users_cannot_access_other_users_conversations) ... [WARNING] 2026-11-11 19:47:36,673 django.request: Not Found: /api/chat/conversations/19/
+[WARNING] 2026-11-11 19:47:36,684 django.request: Not Found: /api/chat/conversations/19/messages/
+[WARNING] 2026-11-11 19:47:36,690 django.request: Not Found: /api/chat/conversations/19/messages/
+[WARNING] 2026-11-11 19:47:36,700 django.request: Not Found: /api/chat/conversations/19/
+[WARNING] 2026-11-11 19:47:36,708 django.request: Not Found: /api/chat/conversations/19/
+ok
+test_context_is_not_used_for_unrelated_questions (chat.tests.ConversationContextTests.test_context_is_not_used_for_unrelated_questions) ... ok
+test_follow_up_about_fees_after_admissions (chat.tests.ConversationContextTests.test_follow_up_about_fees_after_admissions) ... ok
+test_pronoun_follow_up_uses_previous_topic (chat.tests.ConversationContextTests.test_pronoun_follow_up_uses_previous_topic) ... ok
+test_official_mode_never_returns_demonstration_information (chat.tests.OfficialModeTests.test_official_mode_never_returns_demonstration_information) ... ok
+test_admission_requirement_paraphrases (chat.tests.SemanticRetrievalTests.test_admission_requirement_paraphrases) ... ok
+test_alternative_question_match_is_reported (chat.tests.SemanticRetrievalTests.test_alternative_question_match_is_reported) ... ok
+test_ambiguous_question_requests_clarification (chat.tests.SemanticRetrievalTests.test_ambiguous_question_requests_clarification) ... ok
+test_answers_include_related_questions (chat.tests.SemanticRetrievalTests.test_answers_include_related_questions) ... ok
+test_demonstration_information_is_labelled (chat.tests.SemanticRetrievalTests.test_demonstration_information_is_labelled) ... ok
+test_held_out_paraphrases_from_other_categories (chat.tests.SemanticRetrievalTests.test_held_out_paraphrases_from_other_categories) ... ok
+test_programme_paraphrases_retrieve_the_same_answer (chat.tests.SemanticRetrievalTests.test_programme_paraphrases_retrieve_the_same_answer) ... ok
+test_similarity_threshold_is_applied (chat.tests.SemanticRetrievalTests.test_similarity_threshold_is_applied) ... ok
+test_small_talk (chat.tests.SemanticRetrievalTests.test_small_talk) ... ok
+test_unrelated_questions_trigger_fallback (chat.tests.SemanticRetrievalTests.test_unrelated_questions_trigger_fallback) ... ok
+test_cannot_rate_someone_elses_message (feedback.tests.FeedbackTests.test_cannot_rate_someone_elses_message) ... [WARNING] 2026-11-11 19:47:45,858 django.request: Bad Request: /api/feedback/
+[WARNING] 2026-11-11 19:47:45,865 django.request: Bad Request: /api/feedback/
+ok
+test_feedback_listing_is_restricted_to_administrators (feedback.tests.FeedbackTests.test_feedback_listing_is_restricted_to_administrators) ... [WARNING] 2026-11-11 19:47:45,979 django.request: Unauthorized: /api/feedback/
+[WARNING] 2026-11-11 19:47:47,151 django.request: Forbidden: /api/feedback/
+ok
+test_feedback_validation (feedback.tests.FeedbackTests.test_feedback_validation) ... [WARNING] 2026-11-11 19:47:48,292 django.request: Bad Request: /api/feedback/
+[WARNING] 2026-11-11 19:47:48,302 django.request: Bad Request: /api/feedback/
+[WARNING] 2026-11-11 19:47:48,310 django.request: Bad Request: /api/feedback/
+[WARNING] 2026-11-11 19:47:48,315 django.request: Bad Request: /api/feedback/
+[WARNING] 2026-11-11 19:47:48,331 django.request: Bad Request: /api/feedback/
+ok
+test_owner_can_rate_a_bot_response (feedback.tests.FeedbackTests.test_owner_can_rate_a_bot_response) ... ok
+test_all_imported_records_are_labelled_as_demonstration (knowledge_base.tests.DatasetImportTests.test_all_imported_records_are_labelled_as_demonstration) ... ok
+test_dataset_is_imported_with_embeddings (knowledge_base.tests.DatasetImportTests.test_dataset_is_imported_with_embeddings) ... ok
+test_import_is_repeatable_without_duplicates (knowledge_base.tests.DatasetImportTests.test_import_is_repeatable_without_duplicates) ... ok
+test_import_updates_changed_records (knowledge_base.tests.DatasetImportTests.test_import_updates_changed_records) ... ok
+test_invalid_records_are_rejected_and_nothing_is_imported (knowledge_base.tests.DatasetImportTests.test_invalid_records_are_rejected_and_nothing_is_imported) ... ok
+test_management_command_runs (knowledge_base.tests.DatasetImportTests.test_management_command_runs) ... ok
+test_archived_and_deleted_faqs_are_not_retrieved (knowledge_base.tests.EmbeddingSynchronisationTests.test_archived_and_deleted_faqs_are_not_retrieved) ... ok
+test_new_alternative_is_used_by_search_immediately (knowledge_base.tests.EmbeddingSynchronisationTests.test_new_alternative_is_used_by_search_immediately) ... ok
+test_new_and_edited_alternatives_get_embeddings (knowledge_base.tests.EmbeddingSynchronisationTests.test_new_and_edited_alternatives_get_embeddings) ... ok
+test_rebuild_embeddings_command (knowledge_base.tests.EmbeddingSynchronisationTests.test_rebuild_embeddings_command) ... ok
+test_saving_without_text_change_does_not_re_encode (knowledge_base.tests.EmbeddingSynchronisationTests.test_saving_without_text_change_does_not_re_encode) ... ok
+test_updating_question_refreshes_embedding (knowledge_base.tests.EmbeddingSynchronisationTests.test_updating_question_refreshes_embedding) ... ok
+test_administrator_cannot_verify_demonstration_information (knowledge_base.tests.KnowledgeAPITests.test_administrator_cannot_verify_demonstration_information) ... [WARNING] 2026-11-11 19:47:57,595 django.request: Bad Request: /api/knowledge/faqs/500/
+ok
+test_administrator_crud_with_automatic_embeddings (knowledge_base.tests.KnowledgeAPITests.test_administrator_crud_with_automatic_embeddings) ... ok
+test_administrator_manages_categories_articles_and_alternatives (knowledge_base.tests.KnowledgeAPITests.test_administrator_manages_categories_articles_and_alternatives) ... [WARNING] 2026-11-11 19:47:59,994 django.request: Conflict: /api/knowledge/categories/109/
+ok
+test_categories_and_articles_are_listed (knowledge_base.tests.KnowledgeAPITests.test_categories_and_articles_are_listed) ... ok
+test_faq_filters_and_search (knowledge_base.tests.KnowledgeAPITests.test_faq_filters_and_search) ... ok
+test_non_administrators_cannot_modify_knowledge (knowledge_base.tests.KnowledgeAPITests.test_non_administrators_cannot_modify_knowledge) ... [WARNING] 2026-11-11 19:48:03,389 django.request: Unauthorized: /api/knowledge/faqs/
+[WARNING] 2026-11-11 19:48:04,427 django.request: Forbidden: /api/knowledge/faqs/
+[WARNING] 2026-11-11 19:48:04,438 django.request: Forbidden: /api/knowledge/faqs/500/
+[WARNING] 2026-11-11 19:48:04,445 django.request: Forbidden: /api/knowledge/alternative-questions/
+ok
+test_public_can_read_published_faqs (knowledge_base.tests.KnowledgeAPITests.test_public_can_read_published_faqs) ... [WARNING] 2026-11-11 19:48:05,586 django.request: Not Found: /api/knowledge/faqs/503/
+ok
+test_public_listing_in_official_mode_hides_demonstration_records (knowledge_base.tests.KnowledgeAPITests.test_public_listing_in_official_mode_hides_demonstration_records) ... ok
+test_semantic_search_endpoint (knowledge_base.tests.KnowledgeAPITests.test_semantic_search_endpoint) ... [WARNING] 2026-11-11 19:48:08,293 django.request: Bad Request: /api/knowledge/search/
+[WARNING] 2026-11-11 19:48:08,297 django.request: Bad Request: /api/knowledge/search/
+ok
+test_demo_mode_includes_labelled_demonstration_records (knowledge_base.tests.VerificationFilteringTests.test_demo_mode_includes_labelled_demonstration_records) ... ok
+test_demonstration_information_cannot_be_verified (knowledge_base.tests.VerificationFilteringTests.test_demonstration_information_cannot_be_verified) ... ok
+test_draft_records_are_never_used (knowledge_base.tests.VerificationFilteringTests.test_draft_records_are_never_used) ... ok
+test_official_mode_only_uses_verified_institutional_records (knowledge_base.tests.VerificationFilteringTests.test_official_mode_only_uses_verified_institutional_records) ... ok
+test_below_threshold_is_no_match (nlp_engine.tests.DecisionTests.test_below_threshold_is_no_match) ... ok
+test_clear_winner_is_answered (nlp_engine.tests.DecisionTests.test_clear_winner_is_answered) ... ok
+test_close_scores_request_clarification (nlp_engine.tests.DecisionTests.test_close_scores_request_clarification) ... ok
+test_high_confidence_skips_clarification (nlp_engine.tests.DecisionTests.test_high_confidence_skips_clarification) ... ok
+test_intent_breaks_ties (nlp_engine.tests.DecisionTests.test_intent_breaks_ties) ... ok
+test_batch_encoding (nlp_engine.tests.EmbeddingTests.test_batch_encoding) ... ok
+test_cached_texts_are_not_re_encoded (nlp_engine.tests.EmbeddingTests.test_cached_texts_are_not_re_encoded) ... ok
+test_embedding_has_384_dimensions_and_unit_length (nlp_engine.tests.EmbeddingTests.test_embedding_has_384_dimensions_and_unit_length) ... ok
+test_fingerprint_changes_with_text (nlp_engine.tests.EmbeddingTests.test_fingerprint_changes_with_text) ... ok
+test_storage_round_trip (nlp_engine.tests.EmbeddingTests.test_storage_round_trip) ... ok
+test_intents_are_detected (nlp_engine.tests.IntentClassifierTests.test_intents_are_detected) ... ok
+test_unrelated_question_is_unknown (nlp_engine.tests.IntentClassifierTests.test_unrelated_question_is_unknown) ... ok
+test_default_backend_is_onnx (nlp_engine.tests.ModelLoaderTests.test_default_backend_is_onnx) ... ok
+test_missing_model_raises_clear_error (nlp_engine.tests.ModelLoaderTests.test_missing_model_raises_clear_error) ... [ERROR] 2026-11-11 19:48:09,766 nlp_engine.model_loader: Failed to load Sentence Transformer model sentence-transformers/all-MiniLM-L6-v2 (onnx backend): ONNX files for sentence-transformers/all-MiniLM-L6-v2 are not in <temporary empty folder> and NLP_OFFLINE is enabled.
+ok
+test_model_is_loaded_once (nlp_engine.tests.ModelLoaderTests.test_model_is_loaded_once) ... ok
+test_model_runs_offline_from_local_cache (nlp_engine.tests.ModelLoaderTests.test_model_runs_offline_from_local_cache)
+Loading a fresh instance with network access forbidden proves no external API is needed. ... [INFO] 2026-11-11 19:48:11,407 nlp_engine.model_loader: Loaded sentence-transformers/all-MiniLM-L6-v2 with the onnx backend on CPU in 1.64s
+ok
+test_onnx_and_pytorch_backends_produce_identical_embeddings (nlp_engine.tests.ModelLoaderTests.test_onnx_and_pytorch_backends_produce_identical_embeddings) ...  OK
+System check identified no issues (0 silenced).
+
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]
+Loading weights:  33%|###3      | 34/103 [00:00<00:00, 338.35it/s]
+Loading weights:  75%|#######4  | 77/103 [00:00<00:00, 256.04it/s]
+Loading weights: 100%|##########| 103/103 [00:00<00:00, 203.57it/s]
+[INFO] 2026-11-11 19:52:11,920 nlp_engine.model_loader: Loaded sentence-transformers/all-MiniLM-L6-v2 with the torch backend on CPU in 238.92s
+ok
+test_server_start_does_not_import_heavy_libraries (nlp_engine.tests.ModelLoaderTests.test_server_start_does_not_import_heavy_libraries)
+Regression test for slow start-up: PyTorch, Transformers and scikit-learn must not be loaded. ... ok
+test_empty_question_is_rejected (nlp_engine.tests.PreprocessingTests.test_empty_question_is_rejected) ... ok
+test_follow_up_detection (nlp_engine.tests.PreprocessingTests.test_follow_up_detection) ... ok
+test_non_text_is_rejected (nlp_engine.tests.PreprocessingTests.test_non_text_is_rejected) ... ok
+test_original_question_is_preserved (nlp_engine.tests.PreprocessingTests.test_original_question_is_preserved) ... ok
+test_question_without_letters_is_rejected (nlp_engine.tests.PreprocessingTests.test_question_without_letters_is_rejected) ... ok
+test_small_talk_detection (nlp_engine.tests.PreprocessingTests.test_small_talk_detection) ... ok
+test_too_long_question_is_rejected (nlp_engine.tests.PreprocessingTests.test_too_long_question_is_rejected) ... ok
+test_unicode_quotes_and_dashes_are_normalised (nlp_engine.tests.PreprocessingTests.test_unicode_quotes_and_dashes_are_normalised) ... ok
+test_whitespace_and_punctuation_are_normalised (nlp_engine.tests.PreprocessingTests.test_whitespace_and_punctuation_are_normalised) ... ok
+test_words_are_not_removed (nlp_engine.tests.PreprocessingTests.test_words_are_not_removed) ... ok
+test_demonstration_answers_are_labelled (nlp_engine.tests.ResponseGeneratorTests.test_demonstration_answers_are_labelled) ... ok
+test_fallback_does_not_invent_an_answer (nlp_engine.tests.ResponseGeneratorTests.test_fallback_does_not_invent_an_answer) ... ok
+test_verified_answers_have_no_disclaimer (nlp_engine.tests.ResponseGeneratorTests.test_verified_answers_have_no_disclaimer) ... ok
+test_empty_index (nlp_engine.tests.SemanticIndexTests.test_empty_index) ... ok
+test_results_are_grouped_by_record_and_ranked (nlp_engine.tests.SemanticIndexTests.test_results_are_grouped_by_record_and_ranked) ... ok
+test_admission_paraphrase (nlp_engine.tests.SemanticSimilarityTests.test_admission_paraphrase) ... ok
+test_paraphrases_are_more_similar_than_unrelated_sentences (nlp_engine.tests.SemanticSimilarityTests.test_paraphrases_are_more_similar_than_unrelated_sentences) ... ok
+test_matches_definition_of_cosine_similarity (nlp_engine.tests.SimilarityTests.test_matches_definition_of_cosine_similarity) ... ok
+test_zero_vector_does_not_divide_by_zero (nlp_engine.tests.SimilarityTests.test_zero_vector_does_not_divide_by_zero) ... ok
+
+----------------------------------------------------------------------
+Ran 112 tests in 590.390s
+
+OK
+Destroying test database for alias 'default' ('test_university_chatbot')...

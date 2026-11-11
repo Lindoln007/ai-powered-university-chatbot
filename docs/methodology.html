@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Methodology &amp; Implementation · AI-Powered University Chatbot</title>
+    <meta name="description" content="How the AI-Powered University Chatbot works: architecture, technologies, knowledge base, semantic search and response generation." />
+    <meta name="theme-color" content="#17402f" />
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="preload" href="assets/fonts/bricolage-grotesque-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="assets/fonts/hanken-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="assets/css/site.css" />
+    <script src="assets/js/site.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a class="brand" href="index.html" aria-label="AI-Powered University Chatbot, project overview">
+          <svg width="34" height="34" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="12" fill="#2b5541" /><path d="M11 12.5h13.5a6.5 6.5 0 0 1 0 13H18l-5.2 4.3c-.7.6-1.8.1-1.8-.8z" fill="none" stroke="#eef5ee" stroke-width="2.6" stroke-linejoin="round" /><circle cx="28.5" cy="12.5" r="3.6" fill="#f0c245" /></svg>
+          <span><span class="brand__long">AI-Powered </span>University Chatbot</span>
+        </a>
+        <nav class="site-nav" aria-label="Portfolio pages">
+          <ol>
+            <li><a href="index.html"><span class="num">01</span><span class="long">Project Overview</span><span class="short">Overview</span></a></li>
+            <li><a href="methodology.html" aria-current="page"><span class="num">02</span><span class="long">Methodology &amp; Implementation</span><span class="short">Method</span></a></li>
+            <li><a href="testing.html"><span class="num">03</span><span class="long">Testing &amp; Results</span><span class="short">Testing</span></a></li>
+          </ol>
+        </nav>
+        <a class="btn btn--gold" href="https://github.com/Lindoln007/ai-powered-university-chatbot" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.73-1.54-2.56-.29-5.25-1.28-5.25-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.78 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.7 5.39-5.27 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z" /></svg>
+          <span>View on GitHub</span>
+        </a>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero hero--page" aria-labelledby="page-title">
+        <svg class="hero__art" viewBox="0 0 520 300" aria-hidden="true"><circle cx="372" cy="118" r="74" class="sun" /><circle cx="372" cy="118" r="108" class="ring" fill="none" stroke-width="1.5" /><path d="M0 232c70-58 138-64 214-22s150 30 306-62v152H0z" class="hill-far" /></svg>
+        <div class="hero__inner">
+          <p class="eyebrow">Page 2 of 3 · Methodology &amp; Implementation</p>
+          <h1 id="page-title">How the chatbot works</h1>
+          <p class="hero__lede">
+            The chatbot is <strong>retrieval-based</strong>: it finds the stored question that means the same as yours and
+            returns that question's human-written answer. A small pre-trained language model handles the "means the same"
+            part. The facts always come from the university knowledge base.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="arch-title">
+        <div class="section__head reveal">
+          <p class="section__num">1 · Architecture</p>
+          <h2 id="arch-title">The main parts and how they connect</h2>
+          <p>A browser-based interface talks to a Django backend through a REST API. The backend stores everything in PostgreSQL and uses a local language model for understanding questions.</p>
+        </div>
+
+        <div class="arch reveal" role="figure" aria-label="Architecture diagram">
+          <div class="arch__layer">
+            <span class="arch__label">What users see</span>
+            <div class="arch__boxes">
+              <div class="box box--forest"><strong>Campus Desk web interface</strong><span>React + TypeScript. Chat, browse topics, quick search, sign-in, staff dashboard.</span></div>
+              <div class="box"><strong>Django Admin</strong><span>Staff add and edit FAQs, alternative wordings, categories and verification status.</span></div>
+            </div>
+          </div>
+          <div class="arch__arrow" aria-hidden="true"><span>JSON over HTTP</span></div>
+          <div class="arch__layer">
+            <span class="arch__label">REST API</span>
+            <div class="arch__boxes">
+              <div class="box box--brand"><strong>Django REST Framework</strong><span>Endpoints under <code>/api/</code>, documented with OpenAPI / Swagger. Token sign-in, guest sessions, rate limits.</span></div>
+            </div>
+          </div>
+          <div class="arch__arrow" aria-hidden="true"><span>calls</span></div>
+          <div class="arch__layer">
+            <span class="arch__label">Backend apps</span>
+            <div class="arch__boxes">
+              <div class="box"><strong>chat</strong><span>Conversations and the question-answering pipeline.</span></div>
+              <div class="box"><strong>knowledge_base</strong><span>FAQs, embeddings, dataset import, search index.</span></div>
+              <div class="box"><strong>accounts</strong><span>Users, roles, sign-in.</span></div>
+              <div class="box"><strong>analytics &amp; feedback</strong><span>Usage figures, unanswered questions, ratings.</span></div>
+            </div>
+          </div>
+          <div class="arch__arrow" aria-hidden="true"><span>uses</span></div>
+          <div class="arch__layer">
+            <span class="arch__label">Understanding &amp; storage</span>
+            <div class="arch__boxes">
+              <div class="box box--gold"><strong>NLP engine</strong><span>all-MiniLM-L6-v2 language model, run locally with ONNX Runtime on the CPU.</span></div>
+              <div class="box box--forest"><strong>PostgreSQL</strong><span>Knowledge base, stored embeddings, conversations, analytics.</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="tech-title">
+        <div class="section__head reveal">
+          <p class="section__num">2 · Technologies</p>
+          <h2 id="tech-title">What it is built with</h2>
+        </div>
+        <div class="table-wrap reveal">
+          <table>
+            <thead>
+              <tr><th scope="col">Part</th><th scope="col">Technology</th><th scope="col">Why it was chosen</th></tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">Backend</th><td>Python 3.12, Django 5.2, Django REST Framework</td><td>Mature, secure web framework with a built-in admin site for managing the knowledge base.</td></tr>
+              <tr><th scope="row">Database</th><td>PostgreSQL 18 (with connection pooling)</td><td>Reliable single source of truth for answers, embeddings, conversations and analytics.</td></tr>
+              <tr><th scope="row">Language model</th><td><code>sentence-transformers/all-MiniLM-L6-v2</code></td><td>Small, fast, pre-trained model for comparing sentence meaning. Runs on an ordinary laptop CPU; no training needed.</td></tr>
+              <tr><th scope="row">Model runtime</th><td>ONNX Runtime + Hugging Face <code>tokenizers</code> (PyTorch optional)</td><td>Same model and identical results, but starts in seconds instead of minutes.</td></tr>
+              <tr><th scope="row">Similarity</th><td>NumPy cosine similarity</td><td>Compares meaning vectors quickly; no separate vector database needed at this size.</td></tr>
+              <tr><th scope="row">Interface</th><td>React 19, TypeScript, Vite</td><td>A responsive single-page app that uses only the public REST API.</td></tr>
+              <tr><th scope="row">API documentation</th><td>drf-spectacular (OpenAPI 3, Swagger UI)</td><td>Interactive documentation that a frontend developer or lecturer can try directly.</td></tr>
+              <tr><th scope="row">Testing</th><td>Django / DRF test framework</td><td>Automated tests against a real PostgreSQL test database and the real model.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="reveal" style="margin-block-start: var(--space-sm); color: var(--ink-2); font-size: var(--text-sm)">No paid or external AI service is used. The only internet access needed is a one-time download of the model files.</p>
+      </section>
+
+      <section class="section" aria-labelledby="kb-title">
+        <div class="split">
+          <div class="prose reveal">
+            <p class="section__num">3 · University knowledge base</p>
+            <h2 id="kb-title">Where the answers come from</h2>
+            <p>
+              The knowledge base is a set of frequently asked questions stored in PostgreSQL. Each FAQ has one main question,
+              several <strong>alternative wordings</strong> of the same question, a written answer, a topic, keywords, a
+              source description, and a verification status.
+            </p>
+            <p>
+              The initial dataset (<code>data/university_faqs.json</code>) has <strong>57 FAQs</strong> with
+              <strong>201 alternative wordings</strong> across <strong>12 topics</strong>, plus 3 longer articles. It is
+              imported by a command that validates every record and can be re-run without creating duplicates.
+            </p>
+            <p>
+              Every record is labelled <strong>hypothetical demonstration information</strong>, because verified university
+              data was not available. The backend enforces this: in <em>official mode</em> only verified records can ever be
+              returned.
+            </p>
+            <div class="evidence-row">
+              <a class="evidence" href="https://github.com/Lindoln007/ai-powered-university-chatbot/blob/main/data/university_faqs.json" target="_blank" rel="noopener">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M14 3h7v7M10 14 21 3M21 14v7H3V3h7" /></svg>
+                Dataset on GitHub
+              </a>
+            </div>
+          </div>
+
+          <div class="reveal">
+            <div class="table-wrap">
+              <table>
+                <caption>One real record from the dataset (ADM-002)</caption>
+                <tbody>
+                  <tr><th scope="row">Main question</th><td>What are the admission requirements?</td></tr>
+                  <tr><th scope="row">Alternative wordings</th><td>What qualifications do I need? · What grades are required? · How can I qualify for admission? · What do I need to join the university? · What are the entry requirements?</td></tr>
+                  <tr><th scope="row">Topic</th><td>Admissions</td></tr>
+                  <tr><th scope="row">Keywords</th><td>requirements, qualifications, MSCE, grades, entry</td></tr>
+                  <tr><th scope="row">Status</th><td>Published · Unverified · Demonstration information</td></tr>
+                  <tr><th scope="row">Answer (start)</th><td>"As a hypothetical example, undergraduate applicants in Malawi are usually expected to hold a Malawi School Certificate of Education (MSCE)…"</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="table-wrap reveal" style="margin-block-start: var(--space-lg)">
+          <table>
+            <caption>FAQs per topic in the initial dataset</caption>
+            <thead><tr><th scope="col">Topic</th><th scope="col">FAQs</th><th scope="col">Topic</th><th scope="col">FAQs</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Admissions</th><td class="num"><span class="bar" aria-hidden="true"><i style="inline-size:100%"></i></span>7</td><th scope="row">Student Support</th><td class="num"><span class="bar" aria-hidden="true"><i style="inline-size:71%"></i></span>5</td></tr>
+              <tr><th scope="row">Examinations</th><td class="num"><span class="bar" aria-hidden="true"><i style="inline-size:86%"></i></span>6</td><th scope="row">Student Affairs</th><td class="num"><span class="bar" aria-hidden="true"><i style="inline-size:57%"></i></span>4</td></tr>
+              <tr><th scope="row">University General Information</th><td class="num"><span class="bar" aria-hidden="true"><i style="inline-size:71%"></i></span>5</td><th scope="row">Library Services</th><td class="num"><span class="bar" aria-hidden="true"><i style="inline-size:57%"></i></span>4</td></tr>
+              <tr><th scope="row">Academic Programmes</th><td class="num"><span class="bar" aria-hidden="true"><i style="inline-size:71%"></i></span>5</td><th scope="row">Accommodation</th><td class="num"><span class="bar" aria-hidden="true"><i style="inline-size:57%"></i></span>4</td></tr>
+              <tr><th scope="row">Tuition and Fees</th><td class="num"><span class="bar" aria-hidden="true"><i style="inline-size:71%"></i></span>5</td><th scope="row">University Contact Information</th><td class="num"><span class="bar" aria-hidden="true"><i style="inline-size:57%"></i></span>4</td></tr>
+              <tr><th scope="row">Student Registration</th><td class="num"><span class="bar" aria-hidden="true"><i style="inline-size:71%"></i></span>5</td><th scope="row">Academic Calendar</th><td class="num"><span class="bar" aria-hidden="true"><i style="inline-size:43%"></i></span>3</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="pipeline-title">
+        <div class="section__head reveal">
+          <p class="section__num">4 · Question processing</p>
+          <h2 id="pipeline-title">What happens when a student asks a question</h2>
+          <p>Followed step by step for a real question from the tests: <strong>"What grades do I need to qualify?"</strong></p>
+        </div>
+        <ol class="pipeline reveal">
+          <li>
+            <h3>Check and tidy the text</h3>
+            <p>Empty, too long (over 500 characters) or meaningless input is rejected. Extra spaces and odd punctuation are cleaned. No words are removed.</p>
+            <p class="example">Text is valid, so it continues.</p>
+          </li>
+          <li>
+            <h3>Turn it into numbers</h3>
+            <p>The language model converts the question into a list of 384 numbers (an <em>embedding</em>) that represents its meaning.</p>
+            <p class="example">384-number meaning vector created in a few milliseconds.</p>
+          </li>
+          <li>
+            <h3>Detect the topic (intent)</h3>
+            <p>The vector is compared with 65 example phrases for 11 intents, such as admissions or fees. Below 0.40 similarity it is "unknown".</p>
+            <p class="example">Intent: <strong>admissions enquiry</strong></p>
+          </li>
+          <li>
+            <h3>Compare with every stored question</h3>
+            <p>It is compared with all 258 stored questions (57 main + 201 alternative wordings) using cosine similarity. Each FAQ keeps its best score.</p>
+            <p class="example">Best match: <strong>ADM-002</strong> "What are the admission requirements?", score <strong>0.86</strong></p>
+          </li>
+          <li>
+            <h3>Decide: answer, ask, or admit it doesn't know</h3>
+            <p>Below <strong>0.50</strong>: fallback. Above <strong>0.75</strong>: answer. In between, if two topics are within 0.03, ask the student to clarify.</p>
+            <p class="example">0.86 is above 0.75, so answer directly.</p>
+          </li>
+          <li>
+            <h3>Build the reply and save it</h3>
+            <p>The stored answer is returned with its source, a demonstration label and related questions. The message and analytics are saved.</p>
+            <p class="example">Answer ADM-002 shown with "Demo information" badge.</p>
+          </li>
+        </ol>
+      </section>
+
+      <section class="section" aria-labelledby="semantic-title">
+        <div class="split">
+          <div class="prose reveal">
+            <p class="section__num">5 · Semantic search</p>
+            <h2 id="semantic-title">Matching by meaning, not by keywords</h2>
+            <p>
+              An <strong>embedding</strong> is a list of numbers that describes what a sentence means. Sentences with similar
+              meanings get similar lists, even if they share no words.
+            </p>
+            <p>
+              <strong>Cosine similarity</strong> measures how closely two embeddings point in the same direction, on a scale
+              where 1 means the same meaning and values near 0 mean unrelated. The chatbot answers only when the best score
+              reaches the <strong>0.50 threshold</strong>, which was chosen by testing (see page 3).
+            </p>
+            <p>
+              Embeddings for all stored questions are calculated once and saved in PostgreSQL. They are only recalculated when
+              a question's text changes, so answering a new question needs just one quick calculation.
+            </p>
+          </div>
+          <div class="reveal">
+            <ul class="meter-list" aria-label="Real similarity scores from the test run">
+              <li>
+                <span class="meter-list__q"><span>"Which courses can I study?" → PROG-001</span><b>0.85</b></span>
+                <span class="meter" aria-hidden="true"><i style="inline-size:85%"></i></span>
+              </li>
+              <li>
+                <span class="meter-list__q"><span>"How much will I pay per semester?" → FEE-001</span><b>0.72</b></span>
+                <span class="meter" aria-hidden="true"><i style="inline-size:72%"></i></span>
+              </li>
+              <li>
+                <span class="meter-list__q"><span>"Am I allowed to pay my fees bit by bit?" → FEE-002</span><b>0.60</b></span>
+                <span class="meter" aria-hidden="true"><i style="inline-size:60%"></i></span>
+              </li>
+              <li>
+                <span class="meter-list__q"><span>"Who won the football world cup in 2018?" → best match</span><b>0.27</b></span>
+                <span class="meter meter--low" aria-hidden="true"><i style="inline-size:27%"></i></span>
+              </li>
+              <li class="threshold">Real scores from the manual test run on 11 November 2026. Scores of 0.50 and above are answered; the football question falls below and gets the fallback reply.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="response-title">
+        <div class="section__head reveal">
+          <p class="section__num">6 · Response generation</p>
+          <h2 id="response-title">Four kinds of reply, all grounded in the knowledge base</h2>
+          <p>The chatbot does not write new text with a generative AI model. Every factual reply is a stored answer, so it cannot invent information.</p>
+        </div>
+        <div class="table-wrap reveal">
+          <table>
+            <thead><tr><th scope="col">Reply type</th><th scope="col">When it is used</th><th scope="col">What the student sees</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Answer</th><td>Best match is clear and at least 0.50</td><td>The stored answer, its source, a match-strength indicator, a demo label if unverified, and related questions</td></tr>
+              <tr><th scope="row">Clarification</th><td>Two different FAQs score almost the same</td><td>"Did you mean…?" with the options as buttons</td></tr>
+              <tr><th scope="row">Fallback</th><td>Best match is below 0.50</td><td>"I couldn't find verified information…", plus a link to browse topics. The question is logged for staff.</td></tr>
+              <tr><th scope="row">Small talk</th><td>Greetings, thanks, goodbye</td><td>A short friendly reply explaining what the chatbot can help with</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="split reveal" style="margin-block-start: var(--space-lg)">
+          <div class="prose">
+            <h3>Follow-up questions</h3>
+            <p>
+              Short follow-ups such as "How much does it cost?" are understood using the previous topic. The new question's
+              meaning is blended with a smaller share (35%) of the previous one, so "it" is resolved to the right topic. The
+              result must still pass the same threshold, so context never adds new facts.
+            </p>
+          </div>
+          <div class="prose">
+            <h3>Safety and data protection</h3>
+            <p>
+              Passwords are hashed, signed-in users use tokens, and guests get a secret session token that is stored only as a
+              hash. Users can only see their own conversations. Requests are rate-limited, and errors never reveal internal
+              details.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="impl-title">
+        <div class="section__head reveal">
+          <p class="section__num">7 · Development process</p>
+          <h2 id="impl-title">How it was built</h2>
+        </div>
+        <ol class="steps reveal">
+          <li><span><strong>Backend and database</strong>Django apps, PostgreSQL models, migrations, REST API with authentication and API documentation.</span></li>
+          <li><span><strong>Dataset and import</strong>The 57-FAQ demonstration dataset with alternative wordings, imported and embedded by a repeatable command.</span></li>
+          <li><span><strong>NLP pipeline</strong>Preprocessing, intent detection, semantic search, decision rules, follow-up handling and response generation.</span></li>
+          <li><span><strong>Testing and tuning</strong>Automated tests, and a held-out evaluation set used to choose the 0.50 threshold.</span></li>
+          <li><span><strong>Web interface</strong>A responsive React interface, later rebuilt with a stronger visual design after feedback.</span></li>
+          <li><span><strong>Performance work</strong>Switched the model runtime from PyTorch to ONNX Runtime with identical results, cutting start-up from about 15 seconds to about 3.</span></li>
+        </ol>
+        <div class="evidence-row reveal" style="margin-block-start: var(--space-md)">
+          <a class="evidence" href="https://github.com/Lindoln007/ai-powered-university-chatbot/commits/main" target="_blank" rel="noopener">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M14 3h7v7M10 14 21 3M21 14v7H3V3h7" /></svg>
+            Commit history on GitHub
+          </a>
+          <a class="evidence" href="https://github.com/Lindoln007/ai-powered-university-chatbot/tree/main/nlp_engine" target="_blank" rel="noopener">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M14 3h7v7M10 14 21 3M21 14v7H3V3h7" /></svg>
+            NLP engine source code
+          </a>
+          <a class="evidence" href="https://github.com/Lindoln007/ai-powered-university-chatbot/blob/main/chat/services.py" target="_blank" rel="noopener">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M14 3h7v7M10 14 21 3M21 14v7H3V3h7" /></svg>
+            Question pipeline (chat/services.py)
+          </a>
+        </div>
+
+        <figure class="shot reveal" style="margin-block-start: var(--space-xl)">
+          <div class="shot__frame">
+            <a href="assets/screenshots/api-docs.jpg" target="_blank" rel="noopener"><img src="assets/screenshots/api-docs.jpg" width="1440" height="900" loading="lazy" alt="Swagger UI page listing the chatbot's REST API endpoints for analytics, authentication, chat, feedback and knowledge base." /></a>
+          </div>
+          <figcaption>The interactive REST API documentation (Swagger UI) generated by the backend.</figcaption>
+        </figure>
+      </section>
+
+      <nav class="pager" aria-label="Previous and next pages">
+        <a href="index.html"><span>Previous · Page 1</span><strong>← Project Overview</strong></a>
+        <a class="pager__next" href="testing.html"><span>Next · Page 3</span><strong>Testing &amp; Results →</strong></a>
+      </nav>
+    </main>
+
+    <footer class="site-footer">
+      <div class="site-footer__inner">
+        <div>
+          <h2>AI-Powered University Chatbot</h2>
+          <p>Asante Mbaya · 351 CP 81 Comprehension, Project 2 · DMI St. John the Baptist University</p>
+          <p>Unofficial academic prototype. Knowledge-base answers are hypothetical demonstration data.</p>
+        </div>
+        <ul>
+          <li><a href="https://github.com/Lindoln007/ai-powered-university-chatbot" target="_blank" rel="noopener">GitHub repository (source code)</a></li>
+          <li><a href="https://github.com/Lindoln007/ai-powered-university-chatbot#readme" target="_blank" rel="noopener">Project documentation (README)</a></li>
+          <li><a href="https://github.com/Lindoln007/ai-powered-university-chatbot/blob/main/data/university_faqs.json" target="_blank" rel="noopener">Knowledge base dataset</a></li>
+        </ul>
+      </div>
+    </footer>
+  </body>
+</html>

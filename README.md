@@ -5,6 +5,10 @@
 **Institution:** DMI St. John the Baptist University
 **Scope:** A Django REST API backend (sections 1–16) and a React web interface, "Campus Desk" (section 17).
 
+**Project portfolio website:** https://lindoln007.github.io/ai-powered-university-chatbot/ (a
+three-page summary of the project, its methodology and its test results, published from the
+`docs/` folder with GitHub Pages).
+
 > **Important: demonstration data.** The knowledge base that ships with this project is
 > **hypothetical demonstration data** written for an academic prototype. It has **not** been
 > verified with DMI St. John the Baptist University. No real fees, dates, phone numbers or

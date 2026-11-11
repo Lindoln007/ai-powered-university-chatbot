@@ -1,0 +1,26 @@
+In-scope questions: 55, out-of-scope questions: 20
+Top-1 retrieval accuracy (no threshold): 51/55 = 92.7%
+Top-3 retrieval accuracy (no threshold): 54/55 = 98.2%
+Best-match score, in-scope:     mean 0.755, min 0.357
+Best-match score, out-of-scope: mean 0.250, max 0.498
+
+threshold | correct wrong clarify fallback | rejected leaked | overall
+----------------------------------------------------------------------
+     0.30 |      50     3       2        0 |       19      1 |   92.0%
+     0.35 |      50     3       2        0 |       18      2 |   90.7%
+     0.40 |      50     3       1        1 |       19      1 |   92.0%
+     0.45 |      50     3       1        1 |       19      1 |   92.0%
+     0.50 |      50     3       1        1 |       20      0 |   93.3%
+     0.55 |      49     3       0        3 |       20      0 |   92.0%
+     0.60 |      49     1       1        4 |       20      0 |   92.0%
+     0.65 |      45     1       0        9 |       20      0 |   86.7%
+     0.70 |      39     0       0       16 |       20      0 |   78.7%
+
+Recommended CHATBOT_SIMILARITY_THRESHOLD = 0.50 (current setting: 0.50)
+
+Errors at threshold 0.50:
+  [answer] 'Am I allowed to pay my fees bit by bit?' expected FEE-003, best FEE-002 (0.596)
+  [answer] 'What mark do I need to pass a course?' expected EXAM-004, best REG-004 (0.586)
+  [clarification] 'I want my exam paper to be marked again' expected EXAM-005, best EXAM-002 (0.549)
+  [answer] 'What student organisations are there?' expected AFF-001, best AFF-002 (0.698)
+  [no_match] 'Can someone help me write my CV?' expected SUP-005, best ADM-001 (0.357)
