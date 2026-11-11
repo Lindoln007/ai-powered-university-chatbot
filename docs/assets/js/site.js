@@ -12,16 +12,24 @@
     return;
   }
 
+  // Scroll reveal that replays every time:
+  // - scrolling down, an element animates in as it enters from the bottom of the screen;
+  // - scrolling up, it animates out in reverse as it leaves through the bottom;
+  // - elements that leave through the top stay shown, so scrolling back up to them
+  //   simply brings them back into view.
   var observer = new IntersectionObserver(
     function (entries) {
       entries.forEach(function (entry) {
         if (entry.isIntersecting) {
           entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target);
+        } else if (entry.boundingClientRect.top > 0) {
+          entry.target.classList.remove("is-visible");
+        } else {
+          entry.target.classList.add("is-visible");
         }
       });
     },
-    { rootMargin: "0px 0px -8% 0px", threshold: 0.08 }
+    { rootMargin: "0px 0px -10% 0px", threshold: 0 }
   );
 
   items.forEach(function (item) {

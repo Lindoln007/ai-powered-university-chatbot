@@ -1265,9 +1265,13 @@ tr.is-highlight th {
 /* ================================================================ motion */
 
 @media (prefers-reduced-motion: no-preference) {
+  /* Scroll reveal: the same fade-and-rise for every element on every page.
+     site.js adds .is-visible as an element scrolls in (going down) and removes it
+     as the element leaves through the bottom of the screen (going up), so the
+     transition plays forwards on the way down and in reverse on the way up. */
   .js .reveal {
     opacity: 0;
-    transform: translateY(14px);
+    transform: translateY(24px);
     transition:
       opacity 600ms var(--ease-out),
       transform 600ms var(--ease-out);
@@ -1286,10 +1290,6 @@ tr.is-highlight th {
   .hero__inner > :nth-child(3) { animation-delay: 120ms; }
   .hero__inner > :nth-child(4) { animation-delay: 180ms; }
   .hero__inner > :nth-child(5) { animation-delay: 240ms; }
-
-  .hero-shot {
-    animation: rise 900ms var(--ease-out) 200ms both;
-  }
 }
 
 @keyframes rise {
